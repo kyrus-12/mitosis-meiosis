@@ -1,0 +1,3568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <title>Subatomic Particles</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        :root {
+            --bg: #1a0510;
+            --surface: rgba(60, 15, 40, 0.85);  
+            --text: #fce4ec;
+            --text-muted:  #d8a0b0;
+            --accent-1: #880e4f;
+            --accent-2: #e91e63;
+            --gold: #ff80ab;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: #0f1419;
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            font-size: 1.3rem;
+
+            font-size: clamp(1.1rem, 1vw + 0.8rem, 1.4rem);
+        }
+
+        /* ===== BACKGROUND ===== */
+        .bg-layer {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            background: var(--bg);
+            background-image: url('');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            filter: grayscale(25%) brightness(1.6) contrast(1.0) sepia(10%);
+        }
+    
+    
+        .bg-layer::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(
+        160deg,
+        rgba(245, 248, 252, 0.7) 0%,       /* Soft gray-white base */
+        rgba(235, 240, 248, 0.6) 40%,      /* Light gray with micro blue */
+        rgba(225, 235, 250, 0.75) 100%     /* Soft light blue-gray highlight */
+    );
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 70px;
+            background: rgba(10, 20, 40, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(197, 160, 89, 0.2);
+            display: flex;
+            align-items: center;
+            padding: 0 2rem;
+            z-index: 1000;
+            gap: 10px;
+        }
+
+        .brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            
+            background:  var(--gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* ===== SIDEBAR - FIXED LEFT ===== */
+        .sidebar {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            width: 260px;
+            height: calc(100vh - 70px);
+            background: rgba(30, 45, 70, 0.95);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(197, 160, 89, 0.2);
+            z-index: 999;
+            overflow-y: auto;
+            padding: 2rem 0;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            padding: 0 1.5rem;
+        }
+
+        .nav-item {
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            font-size: 1rem;
+        }
+
+        .nav-item:hover {
+            background: rgba(128, 0, 0, 0.2);
+            transform: translateX(10px);
+        }
+
+        .nav-item.active {
+            background: rgba(128, 0, 0, 0.3);
+            border-left: 4px solid var(--gold);
+        }
+
+        /* ===== MAIN CONTENT - FILLS REMAINING SPACE ===== */
+        .main-content {
+            margin-top: 70px;
+            margin-left: 260px;
+            min-height: calc(100vh - 70px);
+            padding: 2rem;
+            padding-bottom: 80px;
+            font-size: 1.3rem;
+            width: calc(100% - 260px);
+            display: flex;
+            flex-direction: column;
+
+
+            max-width: 1100px;
+            margin-right: auto;
+            margin-left: calc(260px + max(0px, (100% - 260px - 1100px) / 2));
+        }
+    
+        
+        .main-content > section.active {
+            flex: 1;
+        }
+
+        html {
+            scroll-padding-top: 80px;
+            scroll-behavior: smooth;
+            touch-action: manipulation;
+        }
+
+        .content-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+            width: 100%;
+            font-size: 1.3rem;
+            color: #0a0a0a;
+            margin-bottom: 2rem;
+            min-height: 10vh;
+            scroll-margin-top: 80px;  
+            text-align: justify;
+        }
+    
+    .content-section.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .intro-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid gray;
+            border-radius: 24px;
+            padding: 3rem;
+            width: 100%;
+        }
+
+        h1 {
+           background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+        }
+
+        /* ===== MEDIA ===== */
+        .media-container {
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 12px;
+            max-width: 1000px;
+            border: 1px dashed var(--gold);
+            align-items: center;
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            border-radius: 8px;
+        }
+
+        .img-fluid {
+            width: 100%;
+            max-width: 1000px;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .media-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: black;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .media-title:empty {
+            display:none;
+        }
+
+       
+
+        /* ===== EMBEDS ===== */
+        .embed-container {
+            margin: 20px 0;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 12px;
+            border: 1px solid gray;
+        }
+
+        .embed-container iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+        }
+
+        /* ===== SOCIAL ===== */
+        .social-container {
+            display: flex;
+            gap: 20px;
+            justify-content: right;
+            margin-top: 25px;
+        }
+
+        .social-btn {
+            background: rgba(197, 160, 89, 0.1);
+            color: var(--gold);
+            width: 50px; height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            text-decoration: none;
+            border: 1px solid var(--gold);
+            transition: all 0.3s ease;
+            font-size: 1.5rem;
+        }
+
+        .social-btn:hover {
+            background: var(--gold);
+            color: var(--bg);
+            transform: translateY(-5px) scale(1.1);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            width: 100%;
+            text-align: center;
+            padding: 1rem;
+            color: black;
+            font-size: 1rem;
+            border-top: 1px solid rgba(197, 160, 89, 0.1);
+            margin-top: 2rem;
+            flex-shrink: 0;
+        }
+
+        /* ===== QUIZ STYLES ===== */
+        .quiz-container {
+            background: #c8cdd2;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-container:hover {
+            border-color: var(--gold);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .question {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: black;
+            margin-bottom: 20px;
+        }
+
+        .option {
+            display: block;
+            position: relative;
+            padding: 15px 20px;
+            margin-bottom: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option:hover {
+            background: rgba(197, 160, 89, 0.1);
+            transform: translateX(5px);
+            border-color: var(--gold);
+        }
+
+        .option input {
+            margin-right: 15px;
+            accent-color: var(--gold);
+        }
+
+        .quiz-container.show-results .option.correct-choice {
+            border-color: #28a745 !important;
+            background: rgba(40, 167, 69, 0.15) !important;
+            color: black;
+        }
+
+        .quiz-container.show-results .option.wrong-choice {
+            border-color: #dc3545 !important;
+            background: rgba(220, 53, 69, 0.15) !important;
+            color: black;
+        }
+
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            line-height: 1.5;
+            animation: slideIn 0.4s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            align-items: center;
+            margin: 30px auto;
+            max-width: 620px;
+            flex-wrap: wrap;
+        }
+
+        .btn-submit {
+            flex: 1;
+            min-width: 200px;
+            padding: 15px;
+            background: var(--gold);
+            color: var(--bg);
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-submit:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(197, 160, 89, 0.5);
+        }
+
+        .btn-reset {
+            flex: 1;
+            min-width: 200px;
+            padding: 15px;
+            background: transparent;
+            color: var(--gold);
+            border: 2px solid var(--gold);
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-reset:hover {
+            background: var(--gold);
+            color: var(--bg);
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(197, 160, 89, 0.5);
+        }
+
+        /* ===== MATCHING ===== */
+        .matching-container {
+            background: #c8cdd2;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .matching-container:hover {
+            border-color: var(--gold);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .matching-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .matching-column {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .matching-column-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: black;
+            margin-bottom: 8px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .matching-item {
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-align: center;
+            font-size: 1.3rem;
+            position: relative;
+            user-select: none;
+        }
+
+        .matching-item:hover {
+            background: rgba(197, 160, 89, 0.1);
+            border-color: var(--gold);
+            transform: translateX(5px);
+        }
+
+        .matching-item.selected {
+            border-color: var(--gold) !important;
+            background: rgba(197, 160, 89, 0.2) !important;
+            box-shadow: 0 0 15px rgba(197, 160, 89, 0.3);
+        }
+
+        .matching-item.matched {
+            cursor: default;
+            pointer-events: none;
+        }
+
+        .matching-item.matched.correct-match {
+            border-color: #28a745 !important;
+            background: rgba(40, 167, 69, 0.15) !important;
+            color: black !important;
+        }
+
+        .matching-item.matched.wrong-match {
+            border-color: #dc3545 !important;
+            background: rgba(220, 53, 69, 0.15) !important;
+            color: black !important;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-6px); }
+            20%, 40%, 60%, 80% { transform: translateX(6px); }
+        }
+
+        .matching-item.shake {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        .matching-item.matched.correct-match.pair-0 {
+            border-color: #28a745 !important;
+            background: rgba(40, 167, 69, 0.2) !important;
+            color: black
+            box-shadow: 0 0 10px rgba(40, 167, 69, 0.3);        
+        }
+        .matching-item.matched.correct-match.pair-1 {
+            border-color: #17a2b8 !important;
+            background: rgba(23, 162, 184, 0.2) !important;
+            color: black
+            box-shadow: 0 0 10px rgba(23, 162, 184, 0.3);
+        }
+        .matching-item.matched.correct-match.pair-2 {
+            border-color: #ffc107 !important;
+            background: rgba(255, 193, 7, 0.2) !important;
+            color: black
+            box-shadow: 0 0 10px rgba(255, 193, 7, 0.3);
+        }
+        .matching-item.matched.correct-match.pair-3 {
+            border-color: #fd7e14 !important;
+            background: rgba(253, 126, 20, 0.2) !important;
+            color: black
+            box-shadow: 0 0 10px rgba(253, 126, 20, 0.3);
+        }
+        .matching-item.matched.correct-match.pair-4 {
+            border-color: #6f42c1 !important;
+            background: rgba(111, 66, 193, 0.2) !important;
+            color: black
+            box-shadow: 0 0 10px rgba(111, 66, 193, 0.3);
+        }
+        .matching-item.matched.correct-match.pair-5 {
+            border-color: #e83e8c !important;
+            background: rgba(232, 62, 140, 0.2) !important;
+            color: black
+            box-shadow: 0 0 10px rgba(232, 62, 140, 0.3);
+        }
+
+        .matching-feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            line-height: 1.5;
+            animation: slideIn 0.4s ease;
+            display: none;
+        }
+
+        .matching-feedback.correct-feedback {
+            background: rgba(40, 167, 69, 0.1);
+            border: 1px solid rgba(40, 167, 69, 0.3);
+            color: green;
+        }
+
+        .matching-feedback.wrong-feedback {
+            background: rgba(220, 53, 69, 0.1);
+            border: 1px solid rgba(220, 53, 69, 0.3);
+            color: red;
+        }
+
+        .matching-feedback.clue-feedback {
+            background: rgba(197, 160, 89, 0.1);
+            border: 1px solid rgba(197, 160, 89, 0.3);
+            color: black;
+        }
+
+        .matching-progress {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: black;
+        }
+
+        .matching-progress-bar {
+            flex: 1;
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .matching-progress-fill {
+            height: 100%;
+            background: var(--gold);
+            border-radius: 3px;
+            transition: width 0.4s ease;
+        }
+
+        /* ===== SCORE SUMMARY (SECTION-SCOPED) ===== */
+        .score-summary-box {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--accent-1), var(--gold));
+            color: white;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        /* ===== MOBILE ===== */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                top: 70px;
+                border-right: none;
+                border-bottom: 1px solid rgba(197, 160, 89, 0.2);
+                padding: 1rem 0;
+            }
+
+            .nav-menu {
+                flex-direction: row;
+                flex-wrap: wrap;
+                padding: 0 1rem;
+                gap: 0.3rem;
+            }
+
+            .nav-item {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+                flex: 1;
+                min-width: 140px;
+                text-align: center;
+            }
+
+            .nav-item:hover {
+                transform: none;
+            }
+
+            .main-content {
+                margin-left: 0;
+                margin-top: 0;
+                width: 100%;
+                padding: 1rem;
+                padding-bottom: 70px;
+            }
+
+            .matching-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn-submit, .btn-reset {
+                width: 100%;
+            }
+        }
+    
+        .bg-layer.has-image {
+            background-image: var(--bg-image);
+            background-size: cover;
+        }
+    
+    
+   
+        /* ===== TIMED QUIZ SYSTEM (SECTION-SCOPED) ===== */
+        .timed-quiz-wrapper {
+            margin-top: 2rem;
+        }
+
+        /* Start Screen */
+        .quiz-start-screen {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px solid gray;
+            border-radius: 24px;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .quiz-start-screen h2 {
+            font-size: 2rem;
+            color: black;
+            margin-bottom: 1rem;
+        }
+
+        .quiz-start-screen p {
+            color: black
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .quiz-rules {
+            text-align: left;
+            max-width: 500px;
+            margin: 0 auto 2rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+        }
+
+        .quiz-rules li {
+            margin-bottom: 0.8rem;
+            color: black;
+            list-style: none;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .quiz-rules li::before {
+            content: '-';
+            position: absolute;
+            left: 0;
+            color: black;
+        }
+
+        .btn-start-quiz {
+            padding: 18px 60px;
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3);
+        }
+
+        .btn-start-quiz:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(233, 30, 99, 0.5);
+        }
+
+        /* Question Screen */
+        .quiz-question-screen {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .quiz-question-screen.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Progress & Timer Bar */
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1rem 1.5rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 16px;
+            border: 1px solid gray;
+        }
+
+        .quiz-progress {
+            font-size: 1rem;
+            color: black;
+        }
+
+        .quiz-progress span {
+            color: black;
+            font-weight: bold;
+        }
+
+        .timer-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .timer-label {
+            font-size: 0.9rem;
+            color: black;
+        }
+
+        .timer-display {
+            font-size: 1.5rem;
+            font-weight: bold;
+            font-variant-numeric: tabular-nums;
+            color: black;
+            transition: color 0.3s ease;
+        }
+
+        .timer-display.urgent {
+            color: #dc3545;
+            animation: timerPulse 0.5s ease infinite;
+        }
+
+        @keyframes timerPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .timer-bar {
+            width:70%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+
+        .timer-bar-fill {
+            height: 70%;
+            background: linear-gradient(90deg, var(--gold), var(--accent-2));
+            border-radius: 3px;
+            transition: width 1s linear;
+            width: 100%;
+        }
+
+        .timer-bar-fill.urgent {
+            background: linear-gradient(90deg, #dc3545, #ff4444);
+        }
+
+        /* Question Card */
+        .question-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid gray;
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .question-type-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            background: rgba(197, 160, 89, 0.15);
+            border: 1px solid rgba(197, 160, 89, 0.3);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: black;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .question-text {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: black;
+            margin-bottom: 2rem;
+            line-height: 1.5;
+        }
+
+        /* Options */
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .quiz-option {
+            padding: 0.8rem 0.9rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .quiz-option:hover:not(.disabled) {
+            background: rgba(197, 160, 89, 0.1);
+            border-color: var(--gold);
+            transform: translateX(8px);
+        }
+
+        .quiz-option .option-letter {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(197, 160, 89, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1rem;
+            color: black
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-option.correct {
+            border-color: #28a745 !important;
+            background: rgba(40, 167, 69, 0.15) !important;
+            animation: correctPulse 0.5s ease;
+        }
+
+        .quiz-option.correct .option-letter {
+            background: #28a745;
+            color: white;
+        }
+
+        .quiz-option.wrong {
+            border-color: #dc3545 !important;
+            background: rgba(220, 53, 69, 0.15) !important;
+            animation: shake 0.5s ease;
+        }
+
+        .quiz-option.wrong .option-letter {
+            background: #dc3545;
+            color: white;
+        }
+
+        .quiz-option.disabled {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .quiz-option.reveal-correct {
+            border-color: #28a745 !important;
+            background: rgba(40, 167, 69, 0.1) !important;
+        }
+
+        .quiz-option.reveal-correct .option-letter {
+            background: #28a745;
+            color: white;
+        }
+
+        @keyframes correctPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        /* Feedback Panel */
+        .feedback-panel {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            border-radius: 14px;
+            animation: slideDown 0.4s ease;
+            display: none;
+        }
+
+        .feedback-panel.show {
+            display: block;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .feedback-panel.correct-feedback {
+            background: rgba(40, 167, 69, 0.1);
+            border: 1px solid rgba(40, 167, 69, 0.3);
+            color: #90ee90;
+        }
+
+        .feedback-panel.wrong-feedback {
+            background: rgba(220, 53, 69, 0.1);
+            border: 1px solid rgba(220, 53, 69, 0.3);
+            color: #ff6b6b;
+        }
+
+        .feedback-panel.timeout-feedback {
+            background: rgba(255, 193, 7, 0.1);
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            color: #ffd54f;
+        }
+
+        .feedback-title {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .feedback-explanation {
+            line-height: 1.6;
+            color: black;
+        }
+
+        /* Next Button */
+        .next-btn-container {
+            text-align: center;
+            margin-top: 2rem;
+            animation: fadeIn 0.4s ease 0.2s both;
+        }
+
+        .btn-next {
+            padding: 14px 50px;
+            background: var(--gold);
+            color: var(--bg);
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-next:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 128, 171, 0.5);
+        }
+
+        /* Results Screen */
+        .quiz-results-screen {
+            display: none;
+            text-align: center;
+            padding: 3rem 2rem;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .quiz-results-screen.active {
+            display: block;
+        }
+
+        .results-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .results-score {
+            font-size: 3rem;
+            font-weight: bold;
+            color: black;
+            margin-bottom: 0.5rem;
+        }
+
+        .results-message {
+            font-size: 1.3rem;
+            color: black;
+            margin-bottom: 2rem;
+        }
+
+        .results-breakdown {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            text-align: left;
+        }
+
+        .result-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            margin-bottom: 0.8rem;
+            border-left: 4px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .result-item.correct-item {
+            border-left-color: #28a745;
+        }
+
+        .result-item.wrong-item {
+            border-left-color: #dc3545;
+        }
+
+        .result-item.timeout-item {
+            border-left-color: #ffc107;
+        }
+
+        .result-status {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .result-status.correct-icon {
+            background: rgba(40, 167, 69, 0.2);
+            color: #28a745;
+        }
+
+        .result-status.wrong-icon {
+            background: rgba(220, 53, 69, 0.2);
+            color: #dc3545;
+        }
+
+        .result-status.timeout-icon {
+            background: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+        }
+
+        .result-details {
+            flex: 1;
+        }
+
+        .result-q-text {
+            font-size: 0.95rem;
+            color: black;
+            margin-bottom: 0.2rem;
+        }
+
+        .result-answer {
+            font-size: 0.85rem;
+            color: black;
+        }
+
+        .btn-restart {
+            padding: 16px 50px;
+            background: transparent;
+            color: var(--gold);
+            border: 2px solid var(--gold);
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-restart:hover {
+            background: var(--gold);
+            color: var(--bg);
+            transform: scale(1.05);
+        }
+
+        /* Transitions */
+        .fade-out {
+            animation: fadeOut 0.4s ease forwards;
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(-20px); }
+        }
+
+        /* ===== BACKGROUND MUSIC (DISCUSSION ONLY) ===== */
+            .music-toggle-inline {
+    
+    background: none;
+    border: 2px solid var(--gold);
+    color: var(--gold);
+    width: 40px;
+    height: 40px;
+    border-radius: 20%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+                flex-shrink: 0;
+}
+
+.music-toggle-inline:hover {
+    background: var(--gold);
+    color: var(--bg);
+}
+
+.music-toggle-inline.playing {
+    animation: pulse 2s infinite;
+}
+    
+        .music-toggle {
+            background: none;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .music-toggle:hover {
+            background: var(--gold);
+            color: var(--bg);
+        }
+
+        .music-toggle.playing {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 128, 171, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(255, 128, 171, 0); }
+        }
+
+        .music-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+
+ /* ===== AUTOMATIC FEEDBACK CARD STYLES ===== */
+.auto-card {
+    background: #c8cdd2;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(197, 160, 89, 0.2);
+    padding: 25px;
+    margin-bottom: 30px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.auto-card:hover {
+    border-color: var(--gold);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.auto-info-box {
+    background: rgba(255, 255, 255, 0.4);
+    border-left: 5px solid var(--accent-1);
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    color: #0a0a0a;
+    font-size: 1.2rem;
+    line-height: 1.6;
+}
+
+.auto-question {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: black;
+    margin-bottom: 15px;
+}
+
+.auto-option {
+    display: block;
+    padding: 14px 18px;
+    margin-bottom: 10px;
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: black;
+    user-select: none;
+}
+
+.auto-option:hover {
+    background: rgba(197, 160, 89, 0.15);
+    transform: translateX(5px);
+    border-color: var(--gold);
+}
+
+/* State changes when answered */
+.auto-card.answered .auto-option {
+    pointer-events: none; /* Block further clicking */
+    opacity: 0.6;
+}
+
+.auto-card.answered .auto-option.correct-choice {
+    border-color: #28a745 !important;
+    background: rgba(40, 167, 69, 0.25) !important;
+    opacity: 1 !important;
+    font-weight: bold;
+}
+
+.auto-card.answered .auto-option.wrong-choice {
+    border-color: #dc3545 !important;
+    background: rgba(220, 53, 69, 0.25) !important;
+    opacity: 1 !important;
+}
+
+.auto-feedback-panel {
+    display: none; /* Hidden by default */
+    margin-top: 15px;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    animation: slideIn 0.4s ease;
+}
+
+.auto-card.answered .auto-feedback-panel {
+    display: block; /* Shown automatically when answered */
+}
+
+.auto-feedback-panel.correct-style {
+    background: rgba(40, 167, 69, 0.15);
+    border: 1px solid #28a745;
+    color: #155724;
+}
+
+.auto-feedback-panel.wrong-style {
+    background: rgba(220, 53, 69, 0.15);
+    border: 1px solid #dc3545;
+    color: #721c24;
+}
+
+            
+            /* Prevent caret cursors and accidental selection lines on interactive components */
+.nav-item, 
+.option, 
+.auto-option, 
+.quiz-container, 
+.auto-card,
+.btn-reset,
+button {
+    /* Prevents the blinking caret from appearing upon clicking */
+    user-select: none; 
+    -webkit-user-select: none; /* Safari override */
+    -moz-user-select: none;    /* Firefox override */
+    -ms-user-select: none;     /* IE/Edge override */
+    
+    /* Removes the browser-default active text input focus indication outline */
+    outline: none !important;
+}
+
+
+
+            /* Complete global ban on blinking caret cursors across interactive surfaces */
+.main-content,
+.main-content *,
+.sidebar,
+.sidebar * {
+    /* Prevents the browser from treating structural divs and layouts as editable text blocks */
+    user-select: none; 
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* IE/Edge */
+    
+    /* Disables default browser focus highlighting boundaries when elements are selected */
+    outline: none !important;
+    -webkit-tap-highlight-color: transparent; /* Smooth behavior on mobile clicks */
+}
+
+/* Re-allow standard selective highlights ONLY on actual student text entry inputs if you have them */
+.main-content input[type="text"], 
+.main-content textarea {
+    user-select: text !important;
+    -webkit-user-select: text !important;
+    -moz-user-select: text !important;
+}
+
+
+
+            .references-container {
+                word-break: break-all;
+                overflow-wrap: break-word;
+                text-align: left;
+                margin-top: 1rem;
+                padding: 1rem;
+            }
+
+            .references-container a {
+                text-decoration: underline;
+                word-break: break-all;
+            }
+                
+            /* Forces the container, any text nodes, and all nested elements inside to be solid black */
+.matching-item.wrong-match,
+div.matching-item.wrong-match,
+.matching-container .matching-item.wrong-match {
+    background: rgba(220, 53, 69, 0.25) !important;
+    border-color: #dc3545 !important;
+    color: #000000 !important;
+    box-shadow: 0 0 10px rgba(220, 53, 69, 0.5) !important;
+}
+
+/* Captures any text wrapped in structural tags like spans, paragraphs, or labels */
+.matching-item.wrong-match * {
+    color: #000000 !important;
+}
+
+
+
+    </style>
+</head>
+<body>
+    <div class="bg-layer"></div>
+
+    <header class="header">
+        <button class="music-toggle-inline" id="musicToggle" onclick="toggleDiscussionMusic()" title="Toggle study music">
+        <i class="fas fa-play" id="musicIcon"></i>
+    </button>
+        <div class="brand">HA-TOM? Blogspot</div>
+    </header>
+
+    <aside class="sidebar">
+        <nav class="nav-menu">
+            <div class="nav-item active" onclick="switchTab('home')">Home</div>
+            <div class="nav-item" onclick="switchTab('introduction')">Introduction</div>
+            <div class="nav-item" onclick="switchTab('discussion')">Discussion</div>
+            <div class="nav-item" onclick="switchTab('others')">Other Learning Materials</div>
+            <div class="nav-item" onclick="switchTab('experiment')">Experiment & Simulation Activities</div>
+            <div class="nav-item" onclick="switchTab('summary')">Summary</div>
+            <div class="nav-item" onclick="switchTab('evaluation')">Evaluation</div>
+            <div class="nav-item" onclick="switchTab('authors')">About</div>
+            <div class="nav-item" onclick="switchTab('references')">References</div>
+        </nav>
+    </aside>
+    
+        <div id="youtube-player" style="display:none;"></div>
+
+    
+    <main class="main-content">
+        <section id="home" class="content-section active">
+            <div class="intro-card">
+                <h1>Home</h1>
+                <div class="media-container">
+                    <img src="https://i.imgur.com/rsLZU6O.jpg" class="img-fluid" alt="Placeholder">
+                </div>
+                <div class="media-container">
+                    <div class="video-wrapper">
+                        <iframe id="intro-video-8" src="https://www.youtube.com/embed/Q2g6KodVMXY?enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+                </div>   
+                <br>
+                <hr>
+                <br>
+                <b>What is our blog about?</b>
+                <br>Our blog “Ha-tom?” is all about exploring the fascinating world of atoms, subatomic particles, and matter. We created it to share curiosity and guide readers through the science behind everything around us — from the everyday objects we see to the invisible particles that hold the universe together.
+                <br>
+                <div class="media-container">
+                    <div class="video-wrapper">
+                        <iframe id="intro-video-9" src="https://www.youtube.com/embed/46BxpgooNGQ?enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+                </div>   
+
+                <br>
+                <hr>
+                <br>
+                <b>What is the content of our blog?</b>
+                <br><br>
+                <b>• Matter:</b> We begin with the basics, explaining what matter is and why it’s the foundation of everything.
+                <br><br>
+                <b>• States of Matter:</b> We show how matter exists as solids, liquids, gases, and plasma, and how these states change.
+                <br><br>
+                <b>• Atom and Subatomic Particles:</b> We introduce the atom and its parts — protons, neutrons, and electrons — and explain their roles.
+                <br><br>
+                <b>• Atomic Models:</b> We walk through the history of atomic models, from Dalton’s early ideas to the quantum model, showing how science evolved.
+                <br><br>
+                <b>• What Holds Atoms Together?:</b> We explain the forces inside atoms, like the strong nuclear force and electromagnetic force, that keep them stable.
+                <br><br>
+                <b>• Importance of Subatomic Particles:</b> We highlight why these particles matter — not just in science, but in life and technology.
+                <br><br>
+                <b>• Applications in Real Life:</b> We connect atomic science to everyday uses like electricity, medical imaging, nuclear energy, and even space exploration.
+                <br><br>
+                <hr>
+                <br><br>  
+                <h1>Comments</h1>
+                <script src="https://giscus.app/client.js"
+                    data-repo="kyrus-12/subatomic_particles"
+                    data-repo-id="R_kgDOSIrU1g"
+                    data-category="General"
+                    data-category-id="DIC_kwDOSIrU1s4C7ZGh"
+                    data-mapping="url"
+                    data-strict="0"
+                    data-reactions-enabled="1"
+                    data-emit-metadata="0"
+                    data-input-position="bottom"
+                    data-theme="dark_high_contrast"
+                    data-lang="en"
+                    crossorigin="anonymous"
+                    async>
+                </script>
+            </div>
+        </section>
+
+        
+
+        <section id="introduction" class="content-section">
+            <div class="intro-card">
+                <h1>Introduction</h1>
+                <b>MATATAG CURRICULUM- GRADE 8</b><br>
+                <b>Quarter 2: Science of Materials</b><br>
+                <b>Topic:</b> Subatomic Particles
+                <br><br>
+                <b>Content Standards</b><br> The current structure of the atom includes subatomic particles, their symbol, mass, charge, and location.
+                <br><br><b>Learning Objectives</b><br>
+                At the end of this blog, you should be able to:<br>
+                    <b>•</b> define subatomic particles in terms of their symbol, mass, and charge,<br>
+                    <b>•</b> identify the location of subatomic particles as represented in various atomic models,<br>
+                    <b>•</b> explain the importance of subatomic particles as the fundamental building blocks of matter and life, and<br>
+                    <b>•</b> build an atom using simulations with the appropriate configuration, following the planetary model. 
+                <br><br><b>General Overview</b><br>
+                    Subatomic particles are the tiniest parts that make up everything around us. They are smaller than atoms and are the reason matter exists and behaves the way it does. These particles carry properties like mass and charge, which affect how they interact with one another. Scientists study them to understand why objects are solid, why electricity flows, and even how stars shine. In simple terms, subatomic particles are the invisible “building blocks” that explain the structure of matter and the forces that shape our universe.
+           
+                    <br><br><br><br>
+                               
+                <div class="timed-quiz-wrapper" id="discussion-timed-quiz">
+                    
+                    <!-- START SCREEN -->
+                    <div class="quiz-start-screen" id="discussion-quiz-start-screen">
+                        <h2>Test Your Knowledge!</h2>
+                        <p><b>Direction:</b> Read each statement carefully. Choose <b>FACT</b> if the statement is true and choose <b>BLUFF</b> if the statement is false. </p><br>
+                        
+                        <ul class="quiz-rules">
+                            <li>10 Fact or Bluff Questions</li>
+                            <li>10 seconds per question</li>
+                         </ul>
+                        
+                        <button class="btn-start-quiz" onclick="startTimedQuiz('discussion')">
+                            <i class="fas fa-play"></i> Start Quiz
+                        </button>
+                    </div>
+
+                    <div class="quiz-question-screen" id="discussion-quiz-question-screen">
+                        <div class="quiz-header">
+                            <div>
+                                <div class="quiz-progress"> 
+                                    Question <span id="discussion-current-qnum">1</span> / <span id="discussion-total-qnum">10</span> 
+                                </div>
+                                <div class="timer-container">
+                                    <span class="timer-label"><i class="fas fa-clock"></i></span>
+                                    <span class="timer-display" id="discussion-timer-display">10</span>
+                                </div>
+                            </div>
+                            <div class="timer-bar">
+                                <div class="timer-bar-fill" id="discussion-timer-bar-fill"></div>
+                            </div>
+                        </div> <div class="question-card" id="discussion-question-card">
+                            <span class="question-type-badge" id="discussion-question-type">Multiple Choice</span>
+                            <div class="question-text" id="discussion-question-text">Question text here...</div>
+                            <div class="options-container" id="discussion-options-container"></div>
+                            
+                        
+                   <div class="feedback-panel" id="discussion-feedback-panel">
+                                <div class="feedback-title" id="discussion-feedback-title">Correct!</div>
+                                <div class="feedback-explanation" id="discussion-feedback-explanation">Explanation here...</div>
+                            </div>
+                        </div>
+                        
+                        <div class="next-btn-container" id="discussion-next-btn-container" style="display:none;">
+                            <button class="btn-next" onclick="nextTimedQuestion('discussion')"> 
+                                Next <i class="fas fa-arrow-right"></i> 
+                            </button>
+                        </div>
+                    </div>
+                        
+                    <!-- RESULTS SCREEN -->
+                    <div class="quiz-results-screen" id="discussion-quiz-results-screen">
+                        <div class="results-icon" id="discussion-results-icon">🏆</div>
+                        
+                        <div class="results-score" id="discussion-results-score">15/20</div>
+                        <div class="results-message" id="discussion-results-message">Great job!</div>
+                        
+                        <div class="results-breakdown" id="discussion-results-breakdown">
+                            <!-- Breakdown items injected by JS -->
+                        </div>
+                        
+                        <button class="btn-restart" onclick="restartTimedQuiz('discussion')">
+                            <i class="fas fa-redo"></i> Try Again
+                        </button>
+                    </div>
+                
+                <!-- END TIMED QUIZ -->   
+               <br><br><br><br>
+                    <h1>EXPLORE</h1>
+                    <p>Let’s further explore our topic! Play this game about atoms, subatomic particles, and related concepts. Kindly follow the instructions provided in the game. Have fun while learning!</p>
+                <div class="embed-container">
+                    <iframe src="https://scichamp.com/Chemistry%20games/atomic%20structure/" allowfullscreen></iframe>
+                </div>
+                    <p><a href="https://scichamp.com/Chemistry%20games/atomic%20structure/" target="_blank" style="color: var(--gold);">Open Simulation in New Tab</a></p>
+                </div>
+        </section>
+        
+
+        <section id="discussion" class="content-section">
+            <div class="intro-card">
+                <h1>Discussion</h1>
+                <p><b>MATTER</b></p>
+                Matter is anything that takes up space and has mass. This means that matter occupies room in the universe and contains material that can be measured. Everything around us, whether we can see it or not, is made of matter. For example, a rock is matter because it feels heavy and takes up space, while water is matter because it can be weighed and fills a container. Even air, though invisible, is matter because it fills balloons and rooms and has measurable mass.
+                <br><br><br>
+                <div class="media-container">
+                    <img src="https://i.imgur.com/gk04lAD.jpg" class="img-fluid" alt="Placeholder">
+                </div>
+                <br>
+                Matter has 4 existing states: solid, liquid, gas, and plasma. Solid has a defined shape and volume. Particles within a solid are packed very close together fixed in an ordered arrangement like a table, chair and rock. Liquid state is defined to have volume but lacks a definite shape. Particles within a liquid are not packed as close together as in a solid, allowing them to slide against each other. Examples of liquids include water, oil, and alcohol.A gas lacks either a defined shape or volume. Gas particles are widely separated. Examples of gases include air and the helium in a balloon. Like a gas, a plasma lacks a defined shape or volume. However, the particles of a plasma are electrically charged and are separated by vast differences. Examples of plasma include lightning and the aurora.
+                <br><br><br>
+               <div class="media-container">
+                    <img src="https://i.imgur.com/2BNy5Zs.jpg" class="img-fluid" alt="Placeholder">
+                </div>
+                <br>
+                These states of matter, when zoomed in, are made up of smaller components. In the figure above, matter is shown to be composed of molecules. A molecule is the smallest unit of a substance, formed when two or more atoms bond together, and it retains the chemical properties of that substance. Water, rocks, air, and even neon lights are all made up of molecules. These molecules, in turn, are made up of smaller particles called atoms. Atoms are the fundamental building blocks of all matter, and they are further composed of subatomic particles such as protons, neutrons, and electrons.
+                <br><br>
+                <hr>
+                <br><br>
+                <b>ATOM AND ITS SUBATOMIC PARTICLES</b><br><br>
+                <div class="media-container">
+                    <div class="video-wrapper">
+                        <iframe id="intro-video-1" src="https://www.youtube.com/embed/oG6iLXEr-5M?enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <br>
+                An atom is the smallest unit of matter that retains all of the chemical properties of an element. This is a microscopic structure characterized by a dense, positively charged central core surrounded by a vast cloud of rapidly moving, negatively charged particles. While an atom is the smallest unit that retains an element's properties, it is not indivisible. It is composed of three primary subatomic particles, known as the proton, neutron, and electron. 
+                <br><br><br>
+                <div class="media-container">
+                    <img src="https://i.imgur.com/Rpz1hj9.jpg" class="img-fluid" alt="Placeholder">
+                </div>
+                <br>
+                The figure above shows how the subatomic particles are arranged in an atom. At its center lies the nucleus, which contains nearly all of the atom's mass concentrated into an incredibly tiny volume. Surrounding this nucleus is the electron cloud, an area of mostly empty space where extremely low-mass particles move dynamically in distinct energy levels. The overall structure is naturally balanced in a neutral state, where the positive charge of the core perfectly offsets the negative charge of the surrounding cloud. 
+                <br><br><br><br>
+                <b>STRUCTURE OF SUBATOMIC PARTICLE</b><br>
+                <b>Proton</b><br>
+                <div class="media-container">
+                    <img src="https://i.imgur.com/rjo1Hmd.jpeg" class="img-fluid" alt="Placeholder">
+                </div>
+                <br>
+                The proton is a stable subatomic particle located within the atomic nucleus. It carries a positive elementary charge (+1e). The number of protons in a nucleus is the fundamental characteristic that defines an element's identity (its atomic number). Its mass is 1 atomic mass unit (amu). 
+                <br><br><br>
+                <b>Neutron</b><br>
+                <div class="media-container">
+                    <img src="https://i.imgur.com/wSwafHM.jpeg" class="img-fluid" alt="Placeholder">
+                </div>
+                <br>
+                The neutron is a neutral subatomic particle that resides in the nucleus alongside the proton. It is denoted by n or n<sup>0</sup>. The neutron mass is slightly higher than the proton mass, which is 1 atomic mass unit. The charge of the neutron is null, which implies that the neutron is electrically neutral. Bound by the strong nuclear force, neutrons provide the necessary stability within the nucleus, acting as a buffer to counteract the electrostatic repulsion between positively charged protons. 
+                <br><br><br>
+                <b>Electron</b><br>
+                <div class="media-container">
+                    <img src="https://i.imgur.com/HF6LTxY.jpeg" class="img-fluid" alt="Placeholder">
+                </div>
+                <br>
+                The electron is a fundamental subatomic particle that exists outside the nucleus, occupying the vast space known as the electron cloud. It carries a negative elementary charge (-1e), perfectly balancing the charge of a proton. It has a relative mass of 0.00055 or 5.45 × 10<sup>-4</sup> amu. Because they reside on the outermost boundaries of the atom, electrons are the particles responsible for chemical bonding and electricity. 
+                <br><br>
+
+                <b>Key Points:</b><br>
+                <table border="1" cellpadding="8" cellspacing="0" width="100%" justify-content="left">
+                    <tr>
+                        <td colspan="5">
+                            <div style="text-align:left"><b>Atom</b> -  is the smallest unit of matter, and is made up of three subatomic particles known as the proton, neutron, and electron.</div>      
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Subatomic Particles</th>
+                        <th>Symbol</th>
+                        <th>Mass (amu)</th>
+                        <th>Charge</th>
+                        <th>Location</th>
+                    </tr>
+                    <tr>
+                        <td>Proton</td>
+                        <td>p<sup>+</sup></td>
+                        <td>1</td>
+                        <td>+1</td>
+                        <td>Inside the nucleus </td>
+                    </tr>
+                    <tr>
+                        <td>Neutron</td>
+                        <td>e<sup>-</sup></td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>Inside the nucleus </td>
+                    </tr>
+                    <tr>
+                        <td>Electron</td>
+                        <td>n<sup>0</sup></td>
+                        <td>5.45 x 10<sup>-4</sup></td>
+                        <td>-1</td>
+                        <td>Outside the nucleus </td>
+                    </tr>
+                </table>
+                <br><br>
+                <div class="auto-info-box">
+                    <h3>Check Your Understanding!</h3>
+                </div>
+                
+                <div class="auto-card">
+                    <div class="auto-question">Question 1: Which of the following statements best defines matter?</div>
+                    <div class="auto-option" onclick="checkAutoAnswer(this, false)">A) Anything that produces light and heat</div>
+                    <div class="auto-option" data-correct="true" onclick="checkAutoAnswer(this, true)">B) Anything that takes up space and has mass</div>
+                    <div class="auto-option" onclick="checkAutoAnswer(this, false)">C) Anything that can be seen and touched</div>
+                    <div class="auto-option" onclick="checkAutoAnswer(this, false)">D) Anything that flows like water or air</div>
+                    
+                    <div class="auto-feedback-panel" 
+                        data-correct-msg="Matter is defined by mass and volume. Light/heat are energy, not matter."
+                        data-wrong-msg="Matter is defined by mass and volume. Light/heat are energy, not matter.">
+                    </div>
+                </div>
+
+                    <br>
+                    <div class="auto-card">
+                    <div class="auto-question">Question 2: Which statement correctly describes a proton?</div>
+                    <div class="auto-option" onclick="checkAutoAnswer(this, false)">A) Negatively charged particle in the electron cloud</div>
+                    <div class="auto-option" onclick="checkAutoAnswer(this, false)">B) Neutral particle in the nucleus</div>
+                    <div class="auto-option" onclick="checkAutoAnswer(this, false)">C) Massless particle orbiting the nucleus</div>
+                    <div class="auto-option" data-correct="true" onclick="checkAutoAnswer(this, true)">D) Positively charged particle in the nucleus</div>
+                    
+                    <div class="auto-feedback-panel" 
+                        data-correct-msg="Protons carry positive charge and define the element’s identity."
+                        data-wrong-msg="Protons carry positive charge and define the element’s identity.">
+                    </div>
+                </div>
+
+                 <br>
+                    <div class="auto-card">
+                    <div class="auto-question">Question 3: What is the role of neutrons in an atom?</div>
+                    <div class="auto-option" onclick="checkAutoAnswer(this, false)">A) Provide positive charge</div>
+                    <div class="auto-option" onclick="checkAutoAnswer(this, false)">B) Balance the number of electrons</div>
+                    <div class="auto-option" data-correct="true" onclick="checkAutoAnswer(this, true)">C) Add mass and stabilize the nucleus</div>
+                    <div class="auto-option" onclick="checkAutoAnswer(this, false)">D) Control chemical bonding</div>
+                    
+                    <div class="auto-feedback-panel" 
+                        data-correct-msg="Neutrons are neutral, add mass, and reduce proton repulsion."
+                        data-wrong-msg="Neutrons are neutral, add mass, and reduce proton repulsion.">
+                    </div>
+                </div>
+
+                <br>
+                    <div class="auto-card">
+                    <div class="auto-question">Question 4: Where are electrons found in an atom?</div>
+                    <div class="auto-option" data-correct="true" onclick="checkAutoAnswer(this, true)">A) Orbiting in the electron cloud</div>
+                    <div class="auto-option" onclick="checkAutoAnswer(this, false)">B) Inside the nucleus with protons</div>
+                    <div class="auto-option" onclick="checkAutoAnswer(this, false)">C) Between protons and neutrons</div>
+                    <div class="auto-option" onclick="checkAutoAnswer(this, false)">D) Fixed in the nucleus</div>
+                    
+                    <div class="auto-feedback-panel" 
+                        data-correct-msg="Electrons are negative, very light, and move around the nucleus."
+                        data-wrong-msg="Electrons are negative, very light, and move around the nucleus.">
+                    </div>
+                </div>
+                
+                <br>
+                <hr>
+                <br><br>
+                <b>ATOMIC MODELS</b><br><br>
+                <div class="media-container">
+                    <div class="video-wrapper">
+                        <iframe id="intro-video-2" src="https://www.youtube.com/embed/9B3DDY27ZtE?enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <br>
+                An <b>atomic model</b> is a scientific representation used to explain the structure of an atom. Since atoms are too small to be seen directly, scientists developed models based on observations, experiments, and evidence. The atomic model changed over time as new discoveries were made, from the early idea of atoms as solid particles to the modern quantum model that describes electrons in probability regions.
+                <br><br><br>
+                <b>Dalton’s Solid Sphere Model</b><br>
+                <div class="media-container">
+                    <img src="https://i.imgur.com/rokDA4r.jpg" class="img-fluid" alt="Placeholder">
+                </div>
+                <br>
+                The first major scientific atomic model was developed by <b>John Dalton</b> in the early 1800s. Dalton transformed the ancient idea of atoms into a scientific theory supported by observations in chemistry. He proposed that all matter is made of extremely small particles called atoms. In his model, atoms were imagined as solid, indivisible spheres.
+                <br><br><br>
+                <div class="media-container">
+                    <img src="https://i.imgur.com/1A8G8po.jpg" class="img-fluid" alt="Placeholder">
+                </div>
+                <br>
+                Dalton’s model became important because it helped explain how elements combine to form compounds. He suggested that atoms of the same element have the same mass and properties, while atoms of different elements have different masses and properties. He also explained that atoms combine in simple whole-number ratios during chemical reactions. This helped support ideas such as the law of conservation of mass, the law of definite proportions, and the law of multiple proportions.
+                <br><br>
+                In simple terms, Dalton pictured the atom as a tiny solid ball. This model was useful during his time because it gave scientists a clearer way to explain chemical reactions. However, it had one major limitation: it did not explain that atoms are made of smaller particles. Later discoveries showed that atoms are not indivisible after all.
+                <br><br>
+                <b>Key Points of Dalton's model:</b><br>
+                <b>•</b> Matter is made of tiny particles called atoms.<br>
+                <b>•</b> Atoms are solid and indivisible.<br>
+                <b>•</b> Atoms of the same element are alike.<br>
+                <b>•</b> Atoms of different elements are different.<br>
+                <b>•</b> Atoms combine in fixed ratios to form compounds.<br>
+                <br><br><br>
+                <b>Thomson’s Plum Pudding Model</b><br>
+                <div class="media-container">
+                    <img src="https://i.imgur.com/494TnSC.jpg" class="img-fluid" alt="Placeholder">
+                </div>
+                <br>
+                Dalton’s model was later challenged when scientists discovered that atoms contain charged particles. In 1897, <b>J.J. Thomson</b> discovered the <b>electron</b>, a negatively charged particle. This discovery proved that atoms were not simple solid spheres. Instead, atoms had smaller parts inside them.
+                <br><br>
+                To explain the presence of electrons, Thomson supported the <b>Plum Pudding Model</b>. In this model, the atom was imagined as a positively charged sphere with negatively charged electrons embedded throughout it. The model is often compared to a pudding with plums or raisins scattered inside. The positive part represented the main body of the atom, while the electrons represented the negative particles placed within it.
+                <br><br><br>
+                <div class="media-container">
+                    <img src="https://i.imgur.com/ac8mAN0.jpg" class="img-fluid" alt="Placeholder">
+                </div>
+                <br>
+                This model was a major improvement because it introduced the idea that the atom has an internal structure. It also showed that electrical charge is an important part of atomic structure. However, the Plum Pudding Model still had a weakness: it did not include a nucleus. Later experiments showed that positive charge and most of the atom’s mass are concentrated in a very small central region.
+                <br><br><br><br>
+                <b>Rutherford’s Nuclear Model</b>
+                <br>
+                <div class="media-container">
+                    <img src="https://i.imgur.com/WCAIN5t.jpg" class="img-fluid" alt="Placeholder">
+                </div>
+                <br>
+                The next major change came from <b>Ernest Rutherford</b>. In 1911, Rutherford and his team performed the famous <b>gold foil experiment</b>. They directed alpha particles toward a very thin sheet of gold foil and observed what happened after the particles passed through or bounced away.
+                <br><br>
+                Most of the alpha particles passed straight through the foil. This showed that the atom is mostly empty space. However, a small number of particles were deflected, and some even bounced back. Rutherford concluded that the atom must contain a very small, dense, positively charged center. He called this central part the <b>nucleus</b>.
+                <br><br><br>
+                <div class="media-container">
+                    <img src="https://i.imgur.com/mrUTJcx.jpg" class="img-fluid" alt="Placeholder">
+                </div>
+                <br>
+                The <b>Nuclear Model</b> changed the understanding of the atom completely. Instead of being a solid sphere or a positively charged mass with electrons scattered inside, the atom was now understood to have a central nucleus with electrons around it. Rutherford’s model explained that most of the atom’s mass is found in the nucleus, while the rest of the atom is mostly empty space.
+                <br><br>
+                However, Rutherford’s model also had a problem. It did not clearly explain why electrons moving around the nucleus did not lose energy and fall into it. This question led to the development of the next atomic model.
+                <br><br><br><br>
+                <b>Bohr’s Planetary Model</b>
+                <br>
+                <div class="media-container">
+                    <img src="https://i.imgur.com/ZymxnVH.jpg" class="img-fluid" alt="Placeholder">
+                </div>
+                <br>
+                In 1913, <b>Niels Bohr</b>, who had studied under Rutherford, improved the nuclear model by explaining how electrons could remain stable around the nucleus. Bohr proposed that electrons move in fixed paths or shells around the nucleus. These paths are sometimes compared to planets orbiting the Sun, which is why the model is often called the <b>Planetary Model</b> or <b>Bohr Model</b>.
+                <br><br><br><br>
+                <div class="media-container">
+                    <img src="https://i.imgur.com/10Szwcz.jpg" class="img-fluid" alt="Placeholder">
+                </div>
+                <br>
+                Bohr explained that each electron shell has a specific energy level. Electrons closer to the nucleus have lower energy, while electrons farther away have higher energy. An electron can move to a higher energy level if it absorbs energy. It can also return to a lower energy level by releasing energy, often in the form of light.
+                <br><br>
+                This model helped explain why atoms release or absorb specific amounts of energy. It was especially successful in explaining the behavior of hydrogen, which has only one electron. However, the model became less successful when scientists tried to apply it to atoms with many electrons. Because of this limitation, a more advanced model was needed.
+                <br><br>
+                <b>Key Points of Bohr’s model:</b><br>
+                <b>•</b> Electrons move around the nucleus in fixed orbits or shells.<br>
+                <b>•</b> Each shell has a specific energy level.<br>
+                <b>•</b> Electrons absorb energy when they move to a higher shell.<br>
+                <b>•</b> Electrons release energy when they move to a lower shell.<br>
+                <b>•</b> The model worked well for hydrogen but not for more complex atoms.<br>
+                <br><br><br>
+                <b>The Quantum Atomic Model</b>
+                <br>
+                <div class="media-container">
+                    <img src="https://i.imgur.com/pdqGFPQ.jpg" class="img-fluid" alt="Placeholder">
+                </div>
+                <br>
+                The <b>Quantum Atomic Model</b> is the modern model of the atom. Unlike the Bohr Model, it does not describe electrons as moving in fixed circular paths. Instead, it explains that electrons are found in regions where they are most likely to be located. These regions are called <b>orbitals</b> or <b>electron clouds</b>.
+                <br><br>
+                In 1926, <b>Erwin Schrödinger</b> used mathematical equations to describe the probable location of electrons. This means that scientists cannot say the exact position of an electron at every moment. Instead, they can describe the area where an electron is most likely to be found. This made the model more accurate than earlier atomic models.
+                <br><br><br>
+                <div class="media-container">
+                    <img src="https://i.imgur.com/AckewLY.jpg" class="img-fluid" alt="Placeholder">
+                </div>
+                <br>
+                The Quantum Model may be harder to visualize because it does not look like a simple solar system. However, it gives a better explanation of how electrons behave, especially in atoms with many electrons. It also connects atomic structure with the principles of quantum mechanics, which studies matter and energy at the atomic and subatomic levels.
+                <br><br><br><br>
+                <b>WHAT HOLDS ATOMS TOGETHER?</b><br>
+                <div class="media-container">
+                    <div class="video-wrapper">
+                        <iframe id="intro-video-3" src="https://www.youtube.com/embed/xTvp8fbL3hI?enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <br>
+                Atoms may look simple in diagrams, but they are held together by powerful interactions between tiny particles. Inside an atom, there are <b>protons</b>, <b>neutrons</b>, and <b>electrons</b>. Protons and neutrons are packed together in the nucleus, while electrons are found around the nucleus in orbitals or electron clouds. The question is: <b>if protons are all positively charged and should repel one another, why does the nucleus not break apart?</b> The answer involves two important forces: the <b>strong nuclear force</b> and the <b>electromagnetic force</b>.
+                <br><br>
+                The <b>strong nuclear force</b> mainly explains why the nucleus stays together, while the <b>electromagnetic force</b> explains the attraction between the positively charged nucleus and negatively charged electrons. Together, these forces help atoms remain stable and allow matter to exist in the forms we observe every day.
+                <br><br><br><br>
+                <b>Strong Force</b>
+                <br>
+                The strong force is the force that holds the nucleus together. Inside the nucleus, there are protons and neutrons. Protons have a positive charge, so they naturally push away from other protons. This is because particles with the same charge repel each other.
+                <br>
+                <div class="media-container">
+                    <img src="https://i.imgur.com/MUcrhFz.jpg" class="img-fluid" alt="Placeholder">
+                </div>
+                <br>
+                However, the nucleus does not easily break apart because the strong force keeps the protons and neutrons tightly together.The strong force acts like a very powerful glue inside the nucleus. It keeps the protons and neutrons close together. 
+                <br><br>
+                <b>Example:</b><br>
+                In a Lithium atom, the nucleus has 2 protons and 2 neutrons. Even though the protons repel each other, the strong force keeps the nucleus stable. 
+                <br><br><br><br>
+                <b>Electromagnetic Force</b>
+                <br>
+                The <b>The electromagnetic force</b> is the force between charged particles. It follows this rule:
+                <br>
+                <b>•</b> Opposite charges attract <br>
+                <b>•</b> Same charges repel <br><br>
+                In an atom:<br>
+                <b>•</b> Protons are <b>positive</b><br>
+                <b>•</b> Electrons are <b>negative</b><br>
+                <br>
+                Because protons and electrons have opposite charges, they attract each other. This attraction helps keep electrons near the nucleus. The electromagnetic force is like the attraction between opposite sides of magnets. The positive nucleus attracts the negative electrons.        
+                <br>
+                <div class="media-container">
+                    <img src="https://i.imgur.com/D2XJOp0.jpg" class="img-fluid" alt="Placeholder">
+                </div>
+                <br><br>
+                <div class="auto-info-box">
+                    <h3>Check Your Understanding!</h3>
+                </div>
+                
+                <div class="auto-card">
+                    <div class="auto-question">Question 1: Which of the following does not belong to the group of atomic models proposed by scientists?</div>
+                    <div class="auto-option" onclick="checkAutoAnswer(this, false)">A) Dalton’s Solid Sphere Model</div>
+                    <div class="auto-option" onclick="checkAutoAnswer(this, false)">B) Thomson’s Plum Pudding Model</div>
+                    <div class="auto-option" onclick="checkAutoAnswer(this, false)">C) Rutherford’s Nuclear Model</div>
+                    <div class="auto-option" data-correct="true" onclick="checkAutoAnswer(this, true)">D) Newton’s Floating Cloud Model</div>
+                    
+                    <div class="auto-feedback-panel" 
+                        data-correct-msg="Newton’s Floating Cloud Model is not a real atomic model discussed in the lesson."
+                        data-wrong-msg="Newton’s Floating Cloud Model is not a real atomic model discussed in the lesson.">
+                    </div>
+                </div>
+                <br>
+                <div class="auto-card">
+                    <div class="auto-question">Question 2: Which statement best summarizes how the strong force and electromagnetic force help keep an atom stable?</div>
+                    <div class="auto-option" onclick="checkAutoAnswer(this, false)">A) The strong force holds electrons together, while the electromagnetic force holds neutrons together.</div>
+                    <div class="auto-option" data-correct="true" onclick="checkAutoAnswer(this, true)">B) The strong force holds protons and neutrons together in the nucleus, while the electromagnetic force attracts electrons to the nucleus.</div>
+                    <div class="auto-option" onclick="checkAutoAnswer(this, false)">C) The strong force makes electrons move away from the atom, while the electromagnetic force removes protons from the nucleus.</div>
+                    <div class="auto-option" onclick="checkAutoAnswer(this, false)">D) The strong force changes protons into electrons, while the electromagnetic force changes neutrons into protons.</div>
+                    
+                    <div class="auto-feedback-panel" 
+                        data-correct-msg="The strong force keeps the nucleus together, while the electromagnetic force attracts negative electrons to the positive nucleus."
+                        data-wrong-msg="The strong force keeps the nucleus together, while the electromagnetic force attracts negative electrons to the positive nucleus.">
+                    </div>
+                </div>
+                
+                <hr>
+                <br><br>
+                <b>IMPORTANCE OF SUBATOMIC PARTICLES</b><br>
+                <b>•</b> Subatomic particles play a major role in many fields of science and technology. In physics, they help scientists understand the nature of matter and energy.
+                <br><br>
+                <b>•</b> In chemistry, the behavior of electrons explains how atoms combine to form compounds.
+                <br>
+                <div class="media-container">
+                    <img src="https://i.imgur.com/FRpSMkD.jpg" class="img-fluid" alt="Placeholder">
+                </div>
+                <br><br><br>
+                <b>•</b> In medicine, radioactive particles are used in treatments and imaging techniques such as radiation therapy and PET scans. 
+                <br>
+                <div class="media-container">
+                    <img src="https://i.imgur.com/szJR6Sd.jpg" class="img-fluid" alt="Placeholder">
+                </div>
+                <br><br>
+                <b>•</b> In technology, the movement of electrons is essential in producing electricity and operating electronic devices. 
+                <br>
+                <div class="media-container">
+                    <img src="https://i.imgur.com/8AxIj7S.jpg" class="img-fluid" alt="Placeholder">
+                </div>
+                <br><br><br>
+                <b>•</b> The study of subatomic particles also led to the development of nuclear energy, particle accelerators, and advanced scientific instruments. Scientists continue to study these particles to discover new information about the universe and the forces that govern it. 
+                <br>
+                <div class="media-container">
+                    <img src="https://i.imgur.com/sgGQ0WT.jpg" class="img-fluid" alt="Placeholder">
+                </div>
+                <br>
+                <b>Key Points of the Importance of Subatomic Particles:</b><br>
+                <b>•</b> Explains matter and energy<br>
+                <b>•</b> Forms chemical bonds<br>
+                <b>•</b> Used in medical technology<br>
+                <b>•</b> Powers electronic devices<br>
+                <b>•</b> Helps study the universe<br>
+                <br><br><br>
+                <b>APPLICATIONS IN REAL LIFE</b>
+                <br>
+                <b>Microscale Applications</b><br>
+                It involves processes, devices, or systems that operate at extremely small dimensions, usually from micrometers (μm) to nanometers (nm). These applications are important in fields such as biology, medicine, chemistry, electronics, and nanotechnology. At this scale, scientists study cells, microorganisms, microscopic particles, and tiny electronic components that cannot be seen clearly with the naked eye. 
+                <br><br>
+                <b>1. Electronics and Semiconductors</b>
+                <br>
+                Electrons are responsible for the flow of electricity in electronic devices. The movement of electrons through semiconductors allows technologies such as smartphones, computers, televisions, and calculators to operate. Transistors and microchips rely on the controlled behavior of electrons to process, store, and transfer information.
+                <br>
+                <div class="media-container">
+                    <img src="https://i.imgur.com/glDRaSL.jpg" class="img-fluid" alt="Placeholder">
+                </div>
+                <br><br>
+                <b>2. Medical Applications</b><br>
+                Subatomic particles are widely used in medicine for diagnosis and treatment. Radioactive particles help doctors identify diseases through imaging techniques such as PET scans and MRI scans. Radiation therapy uses high-energy particles to destroy cancer cells while minimizing damage to healthy tissues.
+                <br>
+                <div class="media-container">
+                    <img src="https://i.imgur.com/szJR6Sd.jpg" class="img-fluid" alt="Placeholder">
+                </div>
+                <br><br>
+                <b>3. Microscopy and Scientific Research</b><br>
+                Electron microscopes use electrons instead of visible light to produce highly magnified images of microscopic objects. This technology enables scientists to study bacteria, viruses, cells, and tiny structures that cannot be seen with ordinary microscopes. Research involving subatomic particles also helps in developing medicines and advanced materials.
+                <br>
+                <div class="media-container">
+                    <img src="https://i.imgur.com/98VcHY9.jpg" class="img-fluid" alt="Placeholder">
+                </div>
+                <br><br>
+                <b>4. Chemical Reactions and Material Development</b><br>
+                Electrons play a major role in chemical bonding and reactions. Their interactions form molecules and compounds used in medicines, fuels, plastics, and food products. Understanding electron behavior helps scientists create stronger, lighter, and more durable materials for various industries.
+                <br><br>
+                <b>Key Points of Microscale Applications:</b><br>
+                <b>•</b> Electronics and semiconductors<br>
+                <b>•</b> Medical imaging and therapy<br>
+                <b>•</b> Electron microscopy<br>
+                <b>•</b> Nanotechnology research<br>
+                <b>•</b> Chemical bonding and reactions<br>
+                <br><br><br>
+                <b>Macroscale Applications</b><br>
+                It involves systems or phenomena that occur on a large, visible scale that can be observed directly without magnification. These applications deal with large objects, environments, or processes such as weather systems, transportation, engineering structures, and planetary phenomena. In science, the macroscale refers to large-scale observations and interactions that are measurable in everyday life. 
+                <br><br>
+                <b>1. Nuclear Energy</b><br>
+                The interaction of protons and neutrons inside the atomic nucleus is used in nuclear power plants. Through nuclear fission, large amounts of energy are released and converted into electricity used in homes, schools, hospitals, and industries.
+                <br>
+                <div class="media-container">
+                    <img src="https://i.imgur.com/sgGQ0WT.jpg" class="img-fluid" alt="Placeholder">
+                </div>
+                <br><br>
+                <b>2. Communication and Technology</b><br>
+                Modern communication systems depend on the movement of electrons and electromagnetic waves. Technologies such as satellites, radios, mobile phones, televisions, and internet systems use principles involving subatomic particles to send and receive information over long distances.
+               <br>
+                <div class="media-container">
+                    <img src="https://i.imgur.com/wBg9eDy.jpg" class="img-fluid" alt="Placeholder">
+                </div>
+                <br><br>
+                <b>3. Space Exploration and Astronomy</b><br>
+                Scientists study subatomic particles to understand stars, galaxies, black holes, and the origin of the universe. Nuclear fusion inside stars, including the Sun, occurs because of interactions among subatomic particles. Particle physics also helps explain cosmic radiation and other astronomical phenomena.
+                <br>
+                <div class="media-container">
+                    <img src="https://i.imgur.com/98VcHY9.jpg" class="img-fluid" alt="Placeholder">
+                </div>
+                <br><br>
+                <b>4. Industrial and Engineering Applications</b><br>
+                Industries use radiation and particle-based technologies in manufacturing and engineering. Radiation helps inspect materials for cracks or defects, sterilize medical equipment, preserve food, and improve product quality. Engineers also apply principles of atomic and particle physics in transportation, construction, and energy systems.
+                <br><br>
+                <b>Key Points of Macroscale Applications:</b><br>
+                <b>•</b> Nuclear power generation<br>
+                <b>•</b> Communication systems<br>
+                <b>•</b> Space exploration<br>
+                <b>•</b> Industrial radiation technology<br>
+                <b>•</b> Engineering and manufacturing<br>
+                <br><br>
+                <div class="auto-info-box">
+                    <h3>Check Your Understanding!</h3>
+                </div>
+                
+                <div class="auto-card">
+                    <div class="auto-question">Question 1: Which of the following technologies uses the movement of electrons to process and store information?</div>
+                    <div class="auto-option" onclick="checkAutoAnswer(this, false)">A) Nuclear power plant</div>
+                    <div class="auto-option" data-correct="true" onclick="checkAutoAnswer(this, true)">B) Microchips and computers</div>
+                    <div class="auto-option" onclick="checkAutoAnswer(this, false)">C) Space satellites</div>
+                    <div class="auto-option" onclick="checkAutoAnswer(this, false)">D) Radiation therapy</div>
+                    
+                    <div class="auto-feedback-panel" 
+                        data-correct-msg="Microchips and computers depend on the controlled movement of electrons through semiconductors. Electrons allow electronic devices to process, store, and transfer information, making modern technology possible."
+                        data-wrong-msg="Microchips and computers depend on the controlled movement of electrons through semiconductors. Electrons allow electronic devices to process, store, and transfer information, making modern technology possible. ">
+                    </div>
+                </div>
+                <br>
+                <div class="auto-card">
+                    <div class="auto-question">Question 2: How are subatomic particles applied in nuclear power plants?</div>
+                    <div class="auto-option" onclick="checkAutoAnswer(this, false)">A) They produce light for microscopes</div>
+                    <div class="auto-option" onclick="checkAutoAnswer(this, false)">B) They help create internet signals</div>
+                    <div class="auto-option" data-correct="true" onclick="checkAutoAnswer(this, true)">C) They release energy through nuclear fission</div>
+                    <div class="auto-option" onclick="checkAutoAnswer(this, false)">D) They form chemical bonds in plastics</div>
+                    
+                    <div class="auto-feedback-panel" 
+                        data-correct-msg="In nuclear power plants, the interaction of protons and neutrons inside the atomic nucleus releases large amounts of energy through nuclear fission. This energy is converted into electricity used in homes and industries."
+                        data-wrong-msg="In nuclear power plants, the interaction of protons and neutrons inside the atomic nucleus releases large amounts of energy through nuclear fission. This energy is converted into electricity used in homes and industries.">
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn-reset" onclick="resetTargetedAutomatedQuestions(this)" style="width: 20px;">
+                        <i class="fas fa-redo"></i> Reset Questions
+                    </button>
+                </div>
+            </div>
+        </section>
+        
+         <!-- ===================== Experiment and Simulation ===================== -->
+        <section id="experiment" class="content-section">
+            <div class="intro-card">
+                <h1>Experiment & Simulation Activities</h1>
+                Let’s apply your understanding to real life. Please watch the flipped video and answer the questions as the video goes along. Also, accomplish the simulation activities included in the flipped classroom video. Pause the parts where you need to answer the questions and complete the activities.
+                <br><br>
+                <div class="media-container">
+                    <div class="video-wrapper">
+                        <iframe id="intro-video-10" src="https://www.youtube.com/embed/Bm1o7E8lA74?enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+                    <div class="media-title">Flipped Classroom</div>
+                </div>   
+
+                <br>
+                <hr style="border: 0; border-top: 1px solid var(--gold); margin: 40px 0;">
+                <h1>INDIVIDUAL ACTIVITY: PhET Simulation</h1>
+                 You are tasked to create a stable configuration of the Lithium element. Follow the specific instructions to accomplish the activity:
+                <br> 1. Get your periodic table from your phone or a hard copy.
+                <br> 2. Click the “Atom” menu.
+                <br> 3. Drag the correct number of protons, neutrons, and electrons into the planetary model.
+                <br> 4. Check your answer using the flipped video.
+                <br><br>
+                <div class="embed-container">
+                    <iframe src="https://phet.colorado.edu/sims/html/build-an-atom/latest/build-an-atom_all.html" allowfullscreen></iframe>
+                </div>
+                <p><a href="https://phet.colorado.edu/sims/html/build-an-atom/latest/build-an-atom_all.html" target="_blank" style="color: var(--gold);">Open Simulation in New Tab</a></p>
+
+                <br>
+                <hr style="border: 0; border-top: 1px solid var(--gold); margin: 40px 0;">
+                <h1>GROUP ACTIVITY</h1>
+                <b>General Instruction.</b> Form groups of three and read each part of the worksheet carefully and follow the directions given.
+                <br><br>
+                <b>Part 1. Matching Type</b>
+                <br><br>
+                <div class="score-summary-box" id="experiment-matching-score-summary">
+                    <h2 id="experiment-matching-final-score-text">You scored 0/0!</h2>
+                    <p id="experiment-matching-final-message">Great job matching all pairs!</p>
+                </div>
+                <div id="experiment-matching-section"></div>
+
+                <br>
+                
+                <div class="button-group">
+                    <button class="btn-reset" onclick="resetSection('experiment')">
+                        <i class="fas fa-redo"></i> Reset Questions
+                    </button>
+                </div>
+
+                <hr style="border: 0; border-top: 1px solid var(--gold); margin: 40px 0;">
+                
+                <b>Part 2: Draw and Label</b>
+                <br>Draw an atom showing all its subatomic particles. Show the path or movement you expect them to make.
+                <br><br><b>Specific Requirements:</b>
+                <br>1. Color each subatomic particle differently.
+                <br>2. Label the Protons, Neutrons, and Electrons.
+                <br>3. Write a brief description in at least 1-2 sentences of each particle and how they move.
+                <br>4. Take a picture of your illustrations and submit it in the Google Form below.
+                <br>
+                <div class="embed-container" id="form-fallback">
+                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdtwNMORccA05ckCs7kmHYbDsdYVr9lJKldQhX8xF5-0tTc7g/viewform?embedded=true"
+                        width="100%" 
+                        height="800" 
+                        frameborder="0"
+                        sandbox="allow-scripts allow-same-origin allow-forms">Loading…
+                    </iframe> 
+                </div>
+                <p><a href="https://docs.google.com/forms/d/e/1FAIpQLSdtwNMORccA05ckCs7kmHYbDsdYVr9lJKldQhX8xF5-0tTc7g/viewform" target="_blank" style="color: var(--gold);">Open Form in New Tab (if not loading properly)</a></p>
+
+                <hr style="border: 0; border-top: 1px solid var(--gold); margin: 40px 0;">
+
+                <b>Part 3: Short Response Essay</b>
+                <br>In 3–5 sentences, explain why subatomic particles are important in life. Kindly enter your answers in the Google Form below.
+                <br>
+                <div class="embed-container" id="form-fallback">
+                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSf6Srb3Kl96DM6SAfNnE9CzpGGWRJ2lU1umqvJd24gC2W_ljA/viewform?embedded=true"
+                        width="100%" 
+                        height="800" 
+                        frameborder="0"
+                        sandbox="allow-scripts allow-same-origin allow-forms">Loading…
+                    </iframe> 
+                </div>
+                <p><a href="https://docs.google.com/forms/d/e/1FAIpQLSf6Srb3Kl96DM6SAfNnE9CzpGGWRJ2lU1umqvJd24gC2W_ljA/viewform" target="_blank" style="color: var(--gold);">Open Form in New Tab (if not loading properly)</a></p>
+                <br>
+                <hr style="border: 0; border-top: 1px solid var(--gold); margin: 40px 0;">
+            
+                <h1>EXTENDED ACTIVITY: AH-toms!</h1>
+                <br><b>General Instruction.</b> Let’s further extend your ability to build atoms by using another simulation. Follow the specific instructions below.
+                <br><br><b>Specific Instructions:</b>
+                <br>1. Explore other elements using another simulation on your own.
+                <br>2. Select atomic numbers from 1 to 118 and build at least 5 atoms with stable configurations.
+                <br>3. Complete the required data in the simulation for each atom.
+                <br>4. Take a screenshot of your work and submit it in the Google Form.
+                <br>5. Reflect on your experience by answering the reflective questions in the Google Form.
+                <br>6. Remember: These questions will not be graded. They are meant to help us understand how you found the overall extended activity.
+                <br><br>
+                <div class="embed-container">
+                    <iframe src="https://extended-activity.onrender.com/" style="height: 950px;" allow="autoplay; fullscreen; encrypted-media" allowfullscreen></iframe>
+                </div
+                    <p><a href="https://extended-activity.onrender.com/" target="_blank" style="color: var(--gold);">Open Simulation in New Tab</a></p>
+                <br>
+                <div class="embed-container" id="form-fallback">
+                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSci6Ekqbqr-6XaH0BkQZnPdWx7PVrOeeBd6rgjDu80LAplayg/viewform?embedded=true"
+                        width="100%" 
+                        height="800" 
+                        frameborder="0"
+                        sandbox="allow-scripts allow-same-origin allow-forms">Loading…
+                    </iframe> 
+                </div>
+                <p><a href="https://docs.google.com/forms/d/e/1FAIpQLSci6Ekqbqr-6XaH0BkQZnPdWx7PVrOeeBd6rgjDu80LAplayg/viewform" target="_blank" style="color: var(--gold);">Open Form in New Tab (if not loading properly)</a></p>
+           
+                <div class="embed-container" id="form-fallback">
+                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdw6L0evHVPG_4cRUl5XAm8n2g_MbELL3K3HCbUWQ-nmIr4Tg/viewform?embedded=true"
+                        width="100%" 
+                        height="800" 
+                        frameborder="0"
+                        sandbox="allow-scripts allow-same-origin allow-forms">Loading…
+                    </iframe> 
+                </div>
+                <p><a href="https://docs.google.com/forms/d/e/1FAIpQLSdw6L0evHVPG_4cRUl5XAm8n2g_MbELL3K3HCbUWQ-nmIr4Tg/viewform" target="_blank" style="color: var(--gold);">Open Form in New Tab (if not loading properly)</a></p>
+                <hr style="border: 0; border-top: 1px solid var(--gold); margin: 40px 0;">        
+            </div>
+        </section>
+
+        
+
+         <section id="summary" class="content-section">
+            <div class="intro-card">
+                <h1>Summary</h1>
+                Listen to this song about subatomic particles to remember key ideas. Happy singing!
+                <br>
+                <div class="media-container">
+                    <div class="video-wrapper">
+                        <iframe id="intro-video-11" src="https://www.youtube.com/embed/oFLH_0B4ZLg?enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <br>
+                <hr>
+                <br>
+                <div class="media-container">
+                    <img src="https://i.imgur.com/1LnCw1L.png" class="img-fluid" alt="Placeholder">
+                </div>
+                <br>
+                <hr>
+                <br>
+                <div class="media-container">
+                    <img src="https://i.imgur.com/5kBjbdl.png" class="img-fluid" alt="Placeholder">
+                </div>
+                <br>
+                <hr>
+                <br>
+                <div class="media-container">
+                    <img src="https://i.imgur.com/3bgmVYC.png" class="img-fluid" alt="Placeholder">
+                </div>   
+            </div>
+        </section>
+
+        <!-- ===================== EVALUATION (WITH QUIZZES) ===================== -->
+        <section id="evaluation" class="content-section">
+            <div class="intro-card">
+                <h1>Evaluation</h1><br>
+                <p style="margin-bottom: 30px;"><b>Directions:</b> Read each question carefully. Choose the best answer. </p>
+
+                <br>
+                <div class="score-summary-box" id="eval-score-summary">
+                    <h2 id="eval-final-score-text">You scored 0/0!</h2>
+                    <p>Check the feedback below for explanations.</p>
+                </div>
+                <div id="eval-mcq-section"></div>
+
+                <div class="button-group">
+                    <button class="btn-submit" onclick="submitQuizForSection('evaluation')">Submit Answers</button>
+                    <button class="btn-reset" onclick="resetSection('evaluation')">
+                        <i class="fas fa-redo"></i> Reset Questions
+                    </button>
+                </div>
+                <br>
+                <hr style="border: 0; border-top: 1px solid var(--gold); margin: 40px 0;">
+                <br>
+                <div class="embed-container" id="form-fallback">
+                    <iframe 
+                        src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2F61589913643873%2Fposts%2F122098415577330454%2F&width=1000&show_text=true&include_comments=true"
+                        width="100%" 
+                        height="800" 
+                        frameborder="0"
+                        sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-top-navigation">
+                        Loading…
+                    </iframe> 
+                </div>
+
+                <p><a href="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2F61589913643873%2Fposts%2F122098415577330454%2F" target="_blank" style="color: var(--gold);">Open in New Tab (if not loading properly)</a></p>
+            </div>
+        </section>
+
+        <section id="authors" class="content-section">
+            <div class="intro-card">
+                <h1>About Us</h1>
+                <b>Hi there, mga Ka‑Ha‑tom!</b>
+                <br><br>We’re your learning buddies in this blog, ready to explore science with you in fun and creative ways!
+                <br><br>We are 3rd year BSEd Science students — aspiring educators who are excited to share learning filled with curiosity and creativity. Our team is made up of five members:
+                <br><br>
+                <div class="media-container">
+                    <img src="https://i.imgur.com/fUmr7d0.jpg" class="img-fluid" alt="Placeholder">
+                </div>
+                <br><br>
+                <b>•</b> (From left to right ) <b>Wilkin Villaflores</b>, <b>Hanie Angel Teodoro</b>, <b>Pauline R. Serrano</b>, and <b>Bea Villanueva</b> — the ones who crafted the lesson plans, designed the activities, and prepared the whole content of this blog.
+                <br><br><b>•</b> On the rightmost side, you’ll meet <b>John Renz Vertudazo</b>, our blog developer, who happily managed the editing and made sure this humble learning space is ready for you.
+                <br><br>We truly hope you enjoyed learning and trying out the activities we prepared.  Remember, learning is more fun when we do it together!
+                <br><br>If you have questions or clarifications, kindly send us a message through our social links below. Let’s keep the learning going — because science is best when shared with joy!
+                <br><br><br><br><br><br><br><br><br><br><br><br>
+                <div class="social-container">
+                    <a href="mailto:hh6762126@gmail.com" class="social-btn" target="_blank"><i class="fas fa-envelope"></i></a>
+                    <a href="https://web.facebook.com/61589913643873" class="social-btn" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/hatom.learning?igsh=MnZyYWw0ZzZnYmN5" class="social-btn" target="_blank"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <section id="others" class="content-section">
+            <div class="intro-card">
+                <h1>Other Learning Materials</h1>
+                The following materials are recorded discussions about subatomic particles and related topics. Please access them for more information and a shortened discussion of the topic.
+                <br><br>
+                <div class="media-container">
+                    <div class="video-wrapper">
+                        <iframe id="intro-video-4" src="https://www.youtube.com/embed/a9PcK0_7clc?enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+                    <div class="media-title">Screencast Video</div>
+                </div>
+                <br>
+                <br>
+                <div class="media-container">
+                    <div class="video-wrapper">
+                        <iframe id="intro-video-5" src="https://www.youtube.com/embed/48uH_2xa2h4?enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+                    <div class="media-title">Audio Slideshow</div>
+                </div>
+                <br>
+                <br>
+                <div class="media-container">
+                    <div class="video-wrapper">
+                        <iframe id="intro-video-6" src="https://www.youtube.com/embed/xS9Q-tGr6UA?enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+                    <div class="media-title">Podcast Video</div>
+                </div>   
+                <br>
+                <br>
+                <div class="media-container">
+                    <div class="video-wrapper">
+                        <iframe id="intro-video-7" src="https://www.youtube.com/embed/LSVY6xR78tA?enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+                    <div class="media-title">Animation Video</div>
+                </div>   
+            </div>
+        </section>
+
+        <section id="references" class="content-section">
+            <div class="intro-card">
+                <h1>References</h1>
+                <div class="references-container">
+                <b>Content</b> 
+                <br> EBSCO Information Services. (n.d.). Subatomic particle. EBSCO Research Starters. Retrieved May 19, 2026, from https://www.ebsco.com/research-starters/physics/subatomic-particle
+                <br><br>Encyclopedia.com. (n.d.). Physics: Inner world search for subatomic particles. Encyclopedia.com. Retrieved May 19, 2026, from https://www.encyclopedia.com/science/science-magazines/physics-inner-world-search-subatomic-particles
+                <br><br>Helmenstine, A. M. (2020, August 27). Definition of state of matter. ThoughtCo. https://www.thoughtco.com/definition-of-state-of-matter-604659
+                <br><br>Physics Lab. (n.d.). What is the importance of the 3 subatomic particles? Physics Lab. Retrieved May 19, 2026, from 
+                <br><br>https://physics-lab.net/what-is-the-importance-of-the-3-subatomic-particles/
+                <br><br>Stewart, K., & The Editors of Encyclopaedia Britannica. (2026, April 8). Atomic model. Encyclopaedia Britannica. https://www.britannica.com/science/atomic-model 
+                <br><br>Trefill, J. (2026). Development of atomic theory. Retrieved from https://www.britannica.com/science/atom/Development-of-atomic-theory#ref48343 
+                <br><br><br><b>Images</b>
+                <br>Getty Images. (2018). Scientist illustration [Photograph]. ThoughtCo. https://www.thoughtco.com/thmb/_qfaVVgrjUWBxrSLy2TtflmwVwA=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/GettyImages-947148218-1742a84786ae46b0b229da848348fb0f.jpg
+                <br><br>Cloudfront. (n.d.). Atomic model illustration [Image]. https://d2av8kbir6lh9m.cloudfront.net/uploads/wzYHFCWRaWG29ioH6S5krAuUNLvC8bmIdDACX6Dm.jpg
+                <br><br>Biography.com Editors. (2019, October 28). John Dalton. Biography. https://www.biography.com/scientist/john-dalton
+                <br><br>Chemistry Learner. (n.d.). Dalton’s atomic theory. Chemistry Learner. https://www.chemistrylearner.com/daltons-atomic-theory.html
+                <br><br>Fundación Española para la Ciencia y la Tecnología. (n.d.). Joseph J. Thomson: Nobel Prize winner, discoverer of the electron. Rincón Educativo. https://rinconeducativo.org/en/recursos-educativos/joseph-j-thomson-nobel-prize-winner-discoverer-electron/
+                <br><br>Encyclopaedia Britannica. (n.d.). Thomson atomic model. In Britannica. https://www.britannica.com/science/Thomson-atomic-model
+                <br><br>Encyclopaedia Britannica. (n.d.). Rutherford model. In Britannica. https://www.britannica.com/science/Rutherford-model
+                <br><br>Atomic Heritage Foundation. (n.d.). Niels Bohr. Atomic Heritage Foundation. https://ahf.nuclearmuseum.org/ahf/profile/niels-bohr/
+                <br><br>Nobel Prize. (n.d.). Erwin Schrödinger – Biographical. NobelPrize.org. https://www.nobelprize.org/prizes/physics/1933/schrodinger/biographical/
+                <br><br>Encyclopaedia Britannica. (n.d.). Bohr model. In Britannica. https://www.britannica.com/science/Bohr-model
+                <br><br>Science Ready. (n.d.). Schrödinger’s atomic model and spdf notation. Science Ready.
+                <br><br>OpenAI. (2026). Diagram showing the real-life applications of subatomic particles [AI-generated image]. ChatGPT. https://chat.openai.com/ 
+                <br><br><br><b>Videos</b>
+                <br>History of Atomic Theory. (2015). Www.youtube.com. https://www.youtube.com/watch?v=9B3DDY27ZtE
+                <br><br>Squint Science. (2019). Subatomic Particles | Particle Physics 101 PART 1. YouTube. https://www.youtube.com/watch?v=oG6iLXEr-5M
+                <br><br>The Atom Song | Protons Neutrons Electrons for Kids | Silly School Songs. (n.d.). Www.youtube.com. https://www.youtube.com/watch?v=oFLH_0B4ZLg
+                <br><br>Science Workshop. (2023). The 4 Forces Explained | Electro-magnetism, Strong, Weak and Gravity. YouTube. https://www.youtube.com/watch?v=xTvp8fbL3hI
+                </div>
+            </div>
+        </section>
+        
+        
+
+        <footer>
+            <p>&copy; 2026 HA-TOM? Blogspot | Created by KA-AHATOM.</p>
+        </footer>
+    </main>
+
+    <script>
+
+        function checkAutoAnswer(selectedElement, isCorrect) {
+    // Find the container parent card element
+    const card = selectedElement.closest('.auto-card');
+    
+    // If already answered, do nothing
+    if (card.classList.contains('answered')) return;
+    
+    // Mark card as answered to change layout states
+    card.classList.add('answered');
+    
+    // Highlight choice
+    if (isCorrect) {
+        selectedElement.classList.add('correct-choice');
+    } else {
+        selectedElement.classList.add('wrong-choice');
+        // Find and highlight the correct answer choice as helper reference
+        const correctBtn = card.querySelector('[data-correct="true"]');
+        if (correctBtn) correctBtn.classList.add('correct-choice');
+    }
+    
+    // Select the feedback display inside this card
+    const feedbackPanel = card.querySelector('.auto-feedback-panel');
+    if (feedbackPanel) {
+        if (isCorrect) {
+            feedbackPanel.classList.add('correct-style');
+            feedbackPanel.innerHTML = `<strong>✅Correct!</strong> ` + feedbackPanel.getAttribute('data-correct-msg');
+        } else {
+            feedbackPanel.classList.add('wrong-style');
+            feedbackPanel.innerHTML = `<strong>❌Incorrect.</strong> ` + feedbackPanel.getAttribute('data-wrong-msg');
+        }
+    }
+}
+
+        function resetTargetedAutomatedQuestions(buttonElement) {
+    // Finds the parent section or container holding these specific automated questions
+    const parentContainer = buttonElement.closest('.content-section') || buttonElement.closest('section') || buttonElement.parentElement.parentElement;
+    
+    if (!parentContainer) return;
+
+    // Selects ONLY the automated question cards within this parent tab section
+    const autoCards = parentContainer.querySelectorAll('.auto-card');
+    
+    autoCards.forEach(card => {
+        // 1. Clear out the answered state lock
+        card.classList.remove('answered');
+        
+        // 2. Unlock choice option button cursor interactions
+        card.style.pointerEvents = 'auto'; 
+        
+        // 3. Clear all visual correct/wrong color layouts from choice boxes
+        card.querySelectorAll('.auto-option').forEach(opt => {
+            opt.classList.remove('correct-choice', 'wrong-choice');
+        });
+        
+        // 4. Safe wipe the dynamic text fields inside the feedback box
+        const feedbackPanel = card.querySelector('.auto-feedback-panel');
+        if (feedbackPanel) {
+            feedbackPanel.classList.remove('correct-style', 'wrong-style');
+            feedbackPanel.innerHTML = '';
+            // DO NOT USE feedbackPanel.style.display = 'none' here!
+        }
+    });
+
+    // Smoothly scroll the screen view back up to the first item box in this section group
+    const firstInfoBox = parentContainer.querySelector('.auto-info-box');
+    if (firstInfoBox) {
+        firstInfoBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+        
+        // ===================== SECTION CONFIGURATION =====================
+        // Each section gets its own isolated data, state, and DOM targets
+        const quizSections = {
+            'evaluation': {
+                mcq: {
+                    containerId: 'eval-mcq-section',
+                    scoreSummaryId: 'eval-score-summary',
+                    scoreTextId: 'eval-final-score-text',
+                    data: [
+                        {
+                            id: 1,
+                            question: "What is an atom?",
+                            options: [
+                                { value: "a", text: "The smallest unit of matter that keeps the properties of an element", explain: "An atom is the smallest unit of matter that still retains the chemical properties of an element." },
+                                { value: "b", text: "A type of energy that produces light", explain: "Because energy is not matter." },
+                                { value: "c", text: "A large particle that can be seen by the naked eye", explain: "Because atoms are too small to be seen directly." },
+                                { value: "d", text: "A substance made only of electrons", explain: "Because atoms contain protons, neutrons, and electrons." }
+                            ],
+                            correct: "a"
+                        },
+                       {
+                            id: 2,
+                            question: "Which subatomic particle has a positive charge?",
+                            options: [
+                                { value: "a", text: "Electron", explain: "Because electrons have a negative charge." },
+                                { value: "b", text: "Proton", explain: "A proton has a positive charge and is found inside the nucleus." },
+                                { value: "c", text: "Neutron", explain: "Because neutrons are neutral" },
+                                { value: "d", text: "Nucleus", explain: "Because the nucleus is a structure, not a single particle." }
+                            ],
+                            correct: "b"
+                        },
+                        {
+                            id: 3,
+                            question: "Where are electrons found in an atom?",
+                            options: [
+                                { value: "a", text: "Inside the nucleus", explain: "Because only protons and neutrons are inside the nucleus." },
+                                { value: "b", text: "In the electron cloud outside the nucleus", explain: "Electrons are negatively charged particles that move around the nucleus in the electron cloud." },
+                                { value: "c", text: "Between protons and neutrons", explain: "Because electrons do not exist between protons and neutrons." },
+                                { value: "d", text: "Only in the center of the atom", explain: "Because electrons are not fixed in the center of the atom." }
+                            ],
+                            correct: "b"
+                        },
+                        {
+                            id: 4,
+                            question: "Which particle has no electric charge?",
+                            options: [
+                                { value: "a", text: "Proton", explain: "Because protons are positively charged." },
+                                { value: "b", text: "Electron", explain: "Because electrons are negatively charged." },
+                                { value: "c", text: "Neutron", explain: "A neutron is neutral, meaning it has no electric charge." },
+                                { value: "d", text: "Ion", explain: "Because ions are charged atoms." }
+                            ],
+                            correct: "c"
+                        },
+                        {
+                            id: 5,
+                            question: "What is the main role of neutrons in the nucleus?",
+                            options: [
+                                { value: "a", text: "They attract electrons outside the atom.", explain: "Because neutrons do not attract electrons." },
+                                { value: "b", text: "They give the atom a negative charge.", explain: "Because neutrons do not give negative charge." },
+                                { value: "c", text: "They help stabilize the nucleus.", explain: "Neutrons help keep the nucleus stable by reducing the repulsion between positively charged protons." },
+                                { value: "d", text: "They make the atom disappear.", explain: "Because neutrons do not make atoms disappear." }
+                            ],
+                            correct: "c"
+                        },
+                        {
+                            id: 6,
+                            question: "Which atomic model described the atom as a solid, indivisible sphere?",
+                            options: [
+                                { value: "a", text: "Dalton’s Solid Sphere Model", explain: "Dalton’s Solid Sphere Model described the atom as a tiny solid sphere that could not be divided." },
+                                { value: "b", text: "Thomson’s Plum Pudding Model", explain: "Because Thomson’s model showed electrons embedded in a positive sphere." },
+                                { value: "c", text: "Rutherford’s Nuclear Model", explain: "Because Rutherford’s model introduced the nucleus." },
+                                { value: "d", text: "Bohr’s Planetary Model", explain: "Because Bohr’s model showed electrons in fixed orbits." }
+                            ],
+                            correct: "a"
+                        },
+                        {
+                            id: 7,
+                            question: "Which scientist discovered the electron and proposed the Plum Pudding Model?",
+                            options: [
+                                { value: "a", text: "John Dalton", explain: "Because Dalton proposed the solid sphere model." },
+                                { value: "b", text: "J.J. Thomson", explain: "J.J. Thomson discovered the electron and proposed the Plum Pudding Model." },
+                                { value: "c", text: "Ernest Rutherford", explain: "Because Rutherford discovered the nucleus." },
+                                { value: "d", text: "Niels Bohr", explain: "Because Bohr proposed the planetary model." }
+                            ],
+                            correct: "b"
+                        },
+                        {
+                            id: 8,
+                            question: "What did Rutherford’s gold foil experiment show?",
+                            options: [
+                                { value: "a", text: "Atoms are completely solid.", explain: "Because atoms are not completely solid." },
+                                { value: "b", text: "Electrons move in fixed shells.", explain: "Because fixed shells were Bohr’s idea." },
+                                { value: "c", text: "Atoms have a small, dense, positively charged nucleus.", explain: "Atoms have a small, dense, positively charged nucleus." },
+                                { value: "d", text: "Atoms do not contain empty space.", explain: "Because Rutherford proved atoms contain empty space." }
+                            ],
+                            correct: "c"
+                        },
+                        {
+                            id: 9,
+                            question: "Which force holds protons and neutrons together inside the nucleus?",
+                            options: [
+                                { value: "a", text: "Gravitational force", explain: "Because gravity is too weak at atomic scales." },
+                                { value: "b", text: "Magnetic force only", explain: "Because magnetism does not bind nucleons." },
+                                { value: "c", text: "Strong nuclear force", explain: "The strong nuclear force acts like a powerful glue that holds protons and neutrons together." },
+                                { value: "d", text: "Frictional force", explain: "Because friction does not apply inside atoms." }
+                            ],
+                            correct: "c"
+                        },
+                        {
+                            id: 10,
+                            question: "Which technology uses the movement of electrons to process and store information?",
+                            options: [
+                                { value: "a", text: "Microchips and computers", explain: "Microchips and computers depend on the controlled movement of electrons to process, store, and transfer information." },
+                                { value: "b", text: "Wooden furniture", explain: "Because wooden furniture does not rely on electron movement." },
+                                { value: "c", text: "Paper notebooks", explain: "Because paper notebooks store information physically, not electronically." },
+                                { value: "d", text: "Plastic bottles", explain: "Because plastic bottles are not used for electron-based information storage." }
+                            ],
+                            correct: "a"
+                        }
+                    ]
+                }
+            },
+            
+            'experiment': {
+                matching: {
+                    containerId: 'experiment-matching-section',
+                    scoreSummaryId: 'experiment-matching-score-summary',
+                    scoreTextId: 'experiment-matching-final-score-text',
+                    messageId: 'experiment-matching-final-message',
+                    data: [
+                        {
+                            id: 1,
+                            question: "Match the definition in Column A with the correct term in Column B.",
+                            pairs: [
+                                { left: "The particle with a positive charge is found in the nucleus", right: "Proton", leftId: "experiment-proton", rightId: "experiment-pro" },
+                                { left: "The particle with no charge but similar mass to a proton", right: "Neutron", leftId: "experiment-neutron", rightId: "experiment-neu" },
+                                { left: "The particle with a negative charge that moves around the nucleus", right: "Electron", leftId: "experiment-electron", rightId: "experiment-ele" },
+                                { left: "The smallest building block of matter, made of subatomic particles", right: "Atom", leftId: "experiment-atom", rightId: "experiment-ato" },
+                                { left: "Anything that has mass and occupies space", right: "Matter", leftId: "experiment-matter", rightId: "experiment-mat" }
+                            ],
+                            clues: {
+                                'experiment-proton': 'Protons carry a positive charge and are located inside the nucleus of an atom. They help determine the identity of an element (atomic number).',
+                                'experiment-neutron': 'Neutrons have no electrical charge but are about the same mass as protons. They also reside in the nucleus and help stabilize it.',
+                                'experiment-electron': 'Electrons are negatively charged particles that orbit the nucleus in energy levels. They are much lighter than protons and neutrons and are responsible for chemical bonding.',
+                                'experiment-atom': 'An atom is the basic unit of matter, composed of protons and neutrons in the nucleus, with electrons moving around it. All substances are made of atoms.',
+                                'experiment-matter': 'Matter refers to anything that takes up space and has mass, whether solid, liquid, gas, or plasma. Atoms are the fundamental units of matter.',
+                                'experiment-pro': 'Protons carry a positive charge and are located inside the nucleus of an atom. They help determine the identity of an element (atomic number).',
+                                'experiment-neu': 'Neutrons have no electrical charge but are about the same mass as protons. They also reside in the nucleus and help stabilize it.',
+                                'experiment-ele': 'Electrons are negatively charged particles that orbit the nucleus in energy levels. They are much lighter than protons and neutrons and are responsible for chemical bonding.',
+                                'experiment-ato': 'An atom is the basic unit of matter, composed of protons and neutrons in the nucleus, with electrons moving around it. All substances are made of atoms.',
+                                'experiment-mat': 'Matter refers to anything that takes up space and has mass, whether solid, liquid, gas, or plasma. Atoms are the fundamental units of matter.',
+                            }
+                        }
+                    ]
+                },
+            }
+        };
+
+
+
+
+        
+        // ===================== STATE MANAGEMENT =====================
+        const sectionStates = {};
+
+        function initSectionState(sectionKey) {
+            const section = quizSections[sectionKey];
+            sectionStates[sectionKey] = {
+                matching: {},
+                mcq: {}
+            };
+            
+            if (section.matching) {
+                section.matching.data.forEach((mq, idx) => {
+                    const qNum = idx + 1;
+                    sectionStates[sectionKey].matching[qNum] = {
+                        selected: null,
+                        matchedPairs: 0,
+                        totalPairs: mq.pairs.length,
+                        correctCount: 0,
+                        completed: false
+                    };
+                });
+            }
+        }
+
+        // ===================== UTILITIES =====================
+        function shuffleArray(array) {
+            const arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        // ===================== RENDER FUNCTIONS (SECTION-SCOPED) =====================
+        function renderMatchingForSection(sectionKey) {
+            const section = quizSections[sectionKey];
+            if (!section || !section.matching) return;
+            
+            const config = section.matching;
+            const container = document.getElementById(config.containerId);
+            if (!container) return;
+            
+            container.innerHTML = '';
+
+            config.data.forEach((mq, idx) => {
+                const qNum = idx + 1;
+                const shuffledLeft = shuffleArray(mq.pairs);
+                const shuffledRight = shuffleArray(mq.pairs);
+
+                let leftItems = '';
+                shuffledLeft.forEach(pair => {
+                    leftItems += `<div class="matching-item" data-column="A" data-id="${pair.leftId}" data-match="${pair.rightId}">${pair.left}</div>`;
+                });
+
+                let rightItems = '';
+                shuffledRight.forEach(pair => {
+                    rightItems += `<div class="matching-item" data-column="B" data-id="${pair.rightId}" data-match="${pair.leftId}">${pair.right}</div>`;
+                });
+
+                container.innerHTML += `
+                    <div class="matching-container" id="${sectionKey}-matching-container-${qNum}">
+                        <p class="question">${mq.question}</p>
+                        <div class="matching-progress">
+                            <span>Progress:</span>
+                            <div class="matching-progress-bar">
+                                <div class="matching-progress-fill" id="${sectionKey}-matching-progress-${qNum}" style="width: 0%"></div>
+                            </div>
+                            <span id="${sectionKey}-matching-count-${qNum}">0 / ${mq.pairs.length} matched</span>
+                        </div>
+                        <div class="matching-grid">
+                            <div class="matching-column">
+                                <div class="matching-column-title">Column A</div>
+                                ${leftItems}
+                            </div>
+                            <div class="matching-column">
+                                <div class="matching-column-title">Column B</div>
+                                ${rightItems}
+                            </div>
+                        </div>
+                        <div id="${sectionKey}-matching-feedback-${qNum}" class="matching-feedback">
+                            <span class="matching-status-text"></span>
+                            <p class="matching-clue-text" style="margin-top: 8px;"></p>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function renderMCQForSection(sectionKey) {
+            const section = quizSections[sectionKey];
+            if (!section || !section.mcq) return;
+            
+            const config = section.mcq;
+            const container = document.getElementById(config.containerId);
+            if (!container) return;
+            
+            container.innerHTML = '';
+            const shuffledQuestions = shuffleArray(config.data);
+
+            shuffledQuestions.forEach((q, idx) => {
+                const qNum = idx + 1;
+                const shuffledOptions = shuffleArray(q.options);
+
+                let optionsHtml = '';
+                shuffledOptions.forEach(opt => {
+                    optionsHtml += `
+                        <label class="option" id="${sectionKey}-q${qNum}-${opt.value}">
+                            <input type="radio" name="${sectionKey}-q${qNum}" value="${opt.value}" data-explain="${opt.explain}" data-correct="${opt.value === q.correct}">
+                            <span>${opt.text}</span>
+                        </label>
+                    `;
+                });
+
+                container.innerHTML += `
+                    <div class="quiz-container" id="${sectionKey}-container-q${qNum}" data-question-id="${q.id}" data-correct="${q.correct}">
+                        <p class="question">${qNum}. ${q.question}</p>
+                        <div class="options-list">${optionsHtml}</div>
+                        <div id="${sectionKey}-feedback-q${qNum}" class="feedback" style="display:none;">
+                            <span class="status-text"></span>
+                            <p class="explanation-text" style="margin-top: 8px; color: black;"></p>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // ===================== EVENT HANDLERS (SECTION-SCOPED) =====================
+        function initMatchingEventsForSection(sectionKey) {
+            const section = quizSections[sectionKey];
+            if (!section || !section.matching) return;
+            
+            const config = section.matching;
+            const container = document.getElementById(config.containerId);
+            if (!container) return;
+            
+            container.querySelectorAll('.matching-container').forEach(matchingContainer => {
+                const questionNum = parseInt(matchingContainer.id.split('-').pop());
+                matchingContainer.querySelectorAll('.matching-item').forEach(item => {
+                    item.addEventListener('click', function() {
+                        if (this.classList.contains('matched')) return;
+                        handleMatchingClick(sectionKey, questionNum, this);
+                    });
+                });
+            });
+        }
+
+        function handleMatchingClick(sectionKey, questionNum, clickedItem) {
+            const state = sectionStates[sectionKey].matching[questionNum];
+            const container = document.getElementById(`${sectionKey}-matching-container-${questionNum}`);
+            const feedbackBox = document.getElementById(`${sectionKey}-matching-feedback-${questionNum}`);
+            const statusText = feedbackBox.querySelector('.matching-status-text');
+            const clueText = feedbackBox.querySelector('.matching-clue-text');
+            const clues = quizSections[sectionKey].matching.data[questionNum - 1].clues;
+
+            // Prevent clicking on elements that are already locked/matched
+            if (clickedItem.classList.contains('matched')) return;
+
+            if (!state.selected) {
+                container.querySelectorAll('.matching-item.selected').forEach(el => el.classList.remove('selected'));
+                clickedItem.classList.add('selected');
+                state.selected = clickedItem;
+                feedbackBox.style.display = 'none';
+                return;
+            }
+
+            const firstItem = state.selected;
+            const secondItem = clickedItem;
+
+            if (firstItem.dataset.column === secondItem.dataset.column) {
+                firstItem.classList.remove('selected');
+                secondItem.classList.add('selected');
+                state.selected = secondItem;
+                return;
+            }
+
+            const isCorrect = firstItem.dataset.match === secondItem.dataset.id &&
+                              secondItem.dataset.match === firstItem.dataset.id;
+
+            if (isCorrect) {
+                state.correctCount++;
+                state.matchedPairs++;
+                const pairIndex = state.matchedPairs - 1;
+                
+                // Retain original successful color coding variables
+                firstItem.classList.add('matched', 'correct-match', `pair-${pairIndex % 6}`);
+                secondItem.classList.add('matched', 'correct-match', `pair-${pairIndex % 6}`);
+                
+                firstItem.classList.remove('selected');
+                state.selected = null;
+
+                statusText.innerHTML = "<b>✅Correct Match!</b>";
+                clueText.innerHTML = `Great job! <b>${firstItem.textContent}</b> matches with <b>${secondItem.textContent}</b>.`;
+                feedbackBox.className = 'matching-feedback correct-feedback';
+                feedbackBox.style.display = 'block';
+                updateMatchingProgress(sectionKey, questionNum);
+
+                if (state.matchedPairs >= state.totalPairs) {
+                    showMatchingScore(sectionKey, questionNum);
+                }
+            } else {
+                // Increment pair counter so tracking moves forward even for mistakes
+                state.matchedPairs++;
+                
+                // ===== UPDATED: Instantly highlights red and locks them permanently from edits =====
+                firstItem.classList.add('matched', 'wrong-match');
+                secondItem.classList.add('matched', 'wrong-match');
+                
+                // Remove selected highlights clean
+                firstItem.classList.remove('selected');
+                secondItem.classList.remove('selected');
+                state.selected = null;
+                
+                statusText.innerHTML = "<b>❌Incorrect Match!</b>";
+                const clue = clues[firstItem.dataset.id] || clues[secondItem.dataset.id] || 'Try again!';
+                clueText.innerHTML = `<b>💡Clue:</b> ${clue}`;
+                feedbackBox.className = 'matching-feedback wrong-feedback';
+                feedbackBox.style.display = 'block';
+                updateMatchingProgress(sectionKey, questionNum);
+
+                if (state.matchedPairs >= state.totalPairs) {
+                    showMatchingScore(sectionKey, questionNum);
+                }
+            }
+        }
+
+
+        function updateMatchingProgress(sectionKey, questionNum) {
+            const state = sectionStates[sectionKey].matching[questionNum];
+            const progressBar = document.getElementById(`${sectionKey}-matching-progress-${questionNum}`);
+            const countText = document.getElementById(`${sectionKey}-matching-count-${questionNum}`);
+            const percentage = (state.matchedPairs / state.totalPairs) * 100;
+            progressBar.style.width = `${percentage}%`;
+            countText.textContent = `${state.matchedPairs} / ${state.totalPairs} matched`;
+        }
+
+        function showMatchingScore(sectionKey, questionNum) {
+            const state = sectionStates[sectionKey].matching[questionNum];
+            state.completed = true;
+            const section = quizSections[sectionKey].matching;
+            const summary = document.getElementById(section.scoreSummaryId);
+            const scoreText = document.getElementById(section.scoreTextId);
+            const messageText = document.getElementById(section.messageId);
+            
+            summary.style.display = 'block';
+            scoreText.innerHTML = `You scored ${state.correctCount} out of ${state.totalPairs}!`;
+            messageText.textContent = state.correctCount === state.totalPairs
+                ? 'Perfect! You matched all pairs correctly!'
+                : 'Good effort! Review the clues and try again if needed.';
+            document.getElementById(sectionKey).scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        
+        
+      // ===================== MCQ SUBMISSION (SECTION-SCOPED) =====================
+        function submitQuizForSection(sectionKey) {
+            const section = quizSections[sectionKey];
+            if (!section || !section.mcq) return;
+            
+            const config = section.mcq;
+            const container = document.getElementById(config.containerId);
+            const quizContainers = container.querySelectorAll('.quiz-container');
+            let score = 0;
+            const total = quizContainers.length;
+
+            quizContainers.forEach((container, idx) => {
+                const qNum = idx + 1;
+                const correctAnswer = container.dataset.correct;
+                const feedbackBox = document.getElementById(`${sectionKey}-feedback-q${qNum}`);
+                const statusText = feedbackBox.querySelector('.status-text');
+                const explanationText = feedbackBox.querySelector('.explanation-text');
+                const selected = container.querySelector(`input[name="${sectionKey}-q${qNum}"]:checked`);
+
+                container.classList.add('show-results');
+                container.querySelectorAll('.option').forEach(opt => opt.classList.remove('correct-choice', 'wrong-choice'));
+
+                // ===== LOCK RADIO BUTTONS TO PREVENT EDITING AFTER SUBMISSION =====
+                container.querySelectorAll(`input[name="${sectionKey}-q${qNum}"]`).forEach(radio => {
+                    radio.disabled = true;
+                });
+                // =========================================================================
+
+                if (selected) {
+                    const isCorrect = selected.value === correctAnswer;
+                    const explanation = selected.getAttribute('data-explain');
+                    if (isCorrect) {
+                        score++;
+                        selected.parentElement.classList.add('correct-choice');
+                        statusText.innerHTML = "<b>✅Correct!</b>";
+                        feedbackBox.className = 'feedback correct-feedback';
+                    } else {
+                        selected.parentElement.classList.add('wrong-choice');
+                        
+                        // ===== ADDED: Find and highlight the correct answer if user got it wrong =====
+                        const correctRadio = container.querySelector(`input[name="${sectionKey}-q${qNum}"][value="${correctAnswer}"]`);
+                        if (correctRadio) {
+                            correctRadio.parentElement.classList.add('correct-choice');
+                        }
+                        // ============================================================================
+                        
+                        statusText.innerHTML = "<b>❌Incorrect.</b>";
+                        feedbackBox.className = 'feedback incorrect-feedback';
+                    }
+                    explanationText.innerHTML = explanation;
+                    feedbackBox.style.display = "block";
+                } else {
+                    // ===== ADDED: Also highlight correct option if left blank for student reference =====
+                    const correctRadio = container.querySelector(`input[name="${sectionKey}-q${qNum}"][value="${correctAnswer}"]`);
+                    if (correctRadio) {
+                        correctRadio.parentElement.classList.add('correct-choice');
+                    }
+                    // ============================================================================
+                    
+                    statusText.innerHTML = "Please select an answer.";
+                    feedbackBox.style.display = "block";
+                }
+            });
+
+            const summary = document.getElementById(config.scoreSummaryId);
+            const scoreText = document.getElementById(config.scoreTextId);
+            summary.style.display = "block";
+            scoreText.innerHTML = `You scored ${score} out of ${total}!`;
+        }
+
+        // ===== AUTOMATICALLY RESET EVERYTHING ON PAGE RELOAD / FRESH REFRESH =====
+        window.addEventListener('beforeunload', function() {
+            // Finds all form wrappers and inputs on the entire page and wipes their memory cache prior to unloading
+            const inputs = document.querySelectorAll('input[type="radio"]');
+            inputs.forEach(radio => {
+                radio.checked = false;
+                radio.disabled = false;
+            });
+        });
+
+
+// ===================== RESET (SECTION-SCOPED) =====================
+        function resetSection(sectionKey) {
+            // Re-initialize state
+            initSectionState(sectionKey);
+            
+            // Re-render matching activity
+            renderMatchingForSection(sectionKey);
+            initMatchingEventsForSection(sectionKey);
+            
+            // Re-render MCQ
+            renderMCQForSection(sectionKey);
+            
+            // Hide score summaries
+            const section = quizSections[sectionKey];
+            if (section.matching) {
+                document.getElementById(section.matching.scoreSummaryId).style.display = 'none';
+            }
+            if (section.mcq) {
+                document.getElementById(section.mcq.scoreSummaryId).style.display = 'none';
+            }
+        }
+
+
+        
+        
+        // ===================== GLOBAL RESET (ALL SECTIONS) =====================
+        function resetAll() {
+            Object.keys(quizSections).forEach(sectionKey => {
+                resetSection(sectionKey);
+            });
+        }
+
+        // ===================== NAVIGATION =====================
+        function switchTab(tabId) {
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+        }
+  
+        function disableDoubleClickZoom() {
+            document.addEventListener('dblclick', function(e) {
+                e.preventDefault();
+            }, { passive: false });
+
+            let lastTouchEnd = 0;
+            document.addEventListener('touchend', function(e) {
+                const now = Date.now();
+                if (now - lastTouchEnd <= 300) {
+                    e.preventDefault();
+                }
+                lastTouchEnd = now;
+            }, { passive: false });
+        }
+
+        function setBackground(imageUrl) {
+            const bgLayer = document.querySelector('.bg-layer');
+            if (imageUrl && imageUrl.trim() !== '') {
+                bgLayer.style.backgroundImage = `url(${imageUrl})`;
+            } else {
+                bgLayer.style.backgroundImage = '';
+            }
+        }
+
+        // ===================== INITIALIZATION =====================
+        function initAllSections() {
+            Object.keys(quizSections).forEach(sectionKey => {
+                initSectionState(sectionKey);
+                renderMatchingForSection(sectionKey);
+                initMatchingEventsForSection(sectionKey);
+                renderMCQForSection(sectionKey);
+                if (timedQuizConfigs[sectionKey]) {
+                initTimedQuizState(sectionKey);
+                 }
+            });
+        }
+        
+        
+        
+        // ===================== TIMED QUIZ SYSTEM (SECTION-SCOPED) =====================
+        // Configuration for timed quizzes per section - isolated to prevent overlap
+        const timedQuizConfigs = {
+            'discussion': {
+                data: [
+                    // Fact or Bluff Questions (1-10)
+                    {
+                        id: 1,
+                        type: 'tf',
+                        question: "Subatomic particles are smaller than atoms.",
+                        options: [
+                            { letter: "A", text: "FACT" },
+                            { letter: "B", text: "BLUFF" }
+                        ],
+                        correct: "A",
+                        explanation: "Atoms are made up of subatomic particles, so they are smaller than the atom itself. "
+                    },
+                {
+                        id: 2,
+                        type: 'tf',
+                        question: "All subatomic particles have the same charge.",
+                        options: [
+                           { letter: "A", text: "FACT" },
+                            { letter: "B", text: "BLUFF" }
+                        ],
+                        correct: "B",
+                        explanation: "Some are positively charged, some negatively charged, and some have no charge at all."
+                    },
+                {
+                        id: 3,
+                        type: 'tf',
+                        question: "Subatomic particles are responsible for the properties of matter.",
+                        options: [
+                             { letter: "A", text: "FACT" },
+                            { letter: "B", text: "BLUFF" }
+                        ],
+                        correct: "A",
+                        explanation: "The way subatomic particles are arranged and interact determines how matter behaves (e.g., solid, liquid, gas)."
+                    },
+                {
+                        id: 4,
+                        type: 'tf',
+                        question: "Subatomic particles can be seen clearly with the naked eye.",
+                        options: [
+                            { letter: "A", text: "FACT" },
+                            { letter: "B", text: "BLUFF" }
+                        ],
+                        correct: "B",
+                        explanation: " Subatomic particles are far too small to be seen without advanced scientific instruments."
+                    },
+                {
+                        id: 5,
+                        type: 'tf',
+                        question: "Some subatomic particles are found in the nucleus of the atom.",
+                        options: [
+                            { letter: "A", text: "FACT" },
+                            { letter: "B", text: "BLUFF" }
+                        ],
+                        correct: "A",
+                        explanation: "The dense center of the atom contains certain subatomic particles that give it mass and stability. "
+                    },
+                {
+                        id: 6,
+                        type: 'tf',
+                        question: "Subatomic particles never move inside the atom.",
+                        options: [
+                            { letter: "A", text: "FACT" },
+                            { letter: "B", text: "BLUFF" }
+                        ],
+                        correct: "B",
+                        explanation: "Some subatomic particles move rapidly around the nucleus, influencing chemical reactions."
+                    },
+                    {
+                        id: 7,
+                        type: 'tf',
+                        question: "The arrangement of subatomic particles affects how atoms bond.",
+                        options: [
+                            { letter: "A", text: "FACT" },
+                            { letter: "B", text: "BLUFF" }
+                        ],
+                        correct: "A",
+                        explanation: "The dense center of the atom contains certain subatomic particles that give it mass and stability. "
+                    },
+                {
+                        id: 8,
+                        type: 'tf',
+                        question: "Gravity is the main force that holds subatomic particles together.",
+                        options: [
+                            { letter: "A", text: "FACT" },
+                            { letter: "B", text: "BLUFF" }
+                        ],
+                        correct: "B",
+                        explanation: "Gravity is too weak at this scale; stronger forces like the strong nuclear force and electromagnetic force hold them together. "
+                    },
+                    {
+                        id: 9,
+                        type: 'tf',
+                        question: "Different atomic models were created to explain subatomic particles.",
+                        options: [
+                            { letter: "A", text: "FACT" },
+                            { letter: "B", text: "BLUFF" }
+                        ],
+                        correct: "A",
+                        explanation: "Scientists developed models (like the plum pudding and quantum models) to describe how subatomic particles are arranged."
+                    },
+                {
+                        id: 10,
+                        type: 'tf',
+                        question: "Subatomic particles are important not only in science but also in everyday life.",
+                        options: [
+                            { letter: "A", text: "FACT" },
+                            { letter: "B", text: "BLUFF" }
+                        ],
+                        correct: "A",
+                        explanation: "They explain electricity, chemical reactions, and even technologies like computers and medical imaging."
+                    },
+                ],
+                timePerQuestion: 10,
+                // DOM element IDs - all prefixed with section key
+                startScreenId: 'discussion-quiz-start-screen',
+                questionScreenId: 'discussion-quiz-question-screen',
+                resultsScreenId: 'discussion-quiz-results-screen',
+                currentQNumId: 'discussion-current-qnum',
+                totalQNumId: 'discussion-total-qnum',
+                timerDisplayId: 'discussion-timer-display',
+                timerBarFillId: 'discussion-timer-bar-fill',
+                questionTypeId: 'discussion-question-type',
+                questionTextId: 'discussion-question-text',
+                optionsContainerId: 'discussion-options-container',
+                feedbackPanelId: 'discussion-feedback-panel',
+                feedbackTitleId: 'discussion-feedback-title',
+                feedbackExplanationId: 'discussion-feedback-explanation',
+                nextBtnContainerId: 'discussion-next-btn-container',
+                resultsIconId: 'discussion-results-icon',
+                resultsScoreId: 'discussion-results-score',
+                resultsMessageId: 'discussion-results-message',
+                resultsBreakdownId: 'discussion-results-breakdown'
+            }
+        };
+        
+        // State storage for timed quizzes - isolated per section
+        const timedQuizStates = {};
+
+        function initTimedQuizState(sectionKey) {
+            const config = timedQuizConfigs[sectionKey];
+            timedQuizStates[sectionKey] = {
+                currentIndex: 0,
+                score: 0,
+                answers: [],
+                timer: null,
+                timeLeft: config.timePerQuestion,
+                isAnswered: false,
+                shuffledData: shuffleArray([...config.data])
+            };
+        }
+        
+              // ===================== YOUTUBE MUSIC (GLOBAL) =====================
+        let youtubePlayer = null;
+        let musicPlaying = false;
+        const MUSIC_VIDEO_ID = 'K59UZ8ucbnQ'; // Lofi Girl radio
+
+        function loadYouTubeAPI() {
+            if (window.YT && window.YT.Player) return;
+            const tag = document.createElement('script');
+            tag.src = "https://www.youtube.com/iframe_api";
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        }
+
+        function onYouTubeIframeAPIReady() {
+            youtubePlayer = new YT.Player('youtube-player', {
+                height: '0',
+                width: '0',
+                videoId: MUSIC_VIDEO_ID,
+                playerVars: {
+                    autoplay: 0,
+                    controls: 0,
+                    disablekb: 1,
+                    fs: 0,
+                    iv_load_policy: 3,
+                    modestbranding: 1,
+                    rel: 0,
+                    showinfo: 0,
+                    loop: 1,
+                    playlist: MUSIC_VIDEO_ID
+                },
+                events: {
+                    onReady: function(event) {
+                        event.target.setVolume(25);
+                    }
+                }
+            });
+        }
+
+        // ===================== MUSIC CONTROLS (GLOBAL) =====================
+        function toggleDiscussionMusic() {
+            const btn = document.getElementById('musicToggle');
+            const icon = document.getElementById('musicIcon');
+            
+            if (!youtubePlayer || !youtubePlayer.playVideo) {
+                alert('Music player is still loading. Please try again in a moment.');
+                return;
+            }
+            
+            if (musicPlaying) {
+                youtubePlayer.pauseVideo();
+                btn.classList.remove('playing');
+                icon.className = 'fas fa-play';
+                musicPlaying = false;
+            } else {
+                youtubePlayer.playVideo();
+                btn.classList.add('playing');
+                icon.className = 'fas fa-pause';
+                musicPlaying = true;
+            }
+        }
+
+        function updateMusicVisibility() {
+            const musicContainer = document.getElementById('bgMusicContainer');
+            if (!musicContainer) return;
+            musicContainer.classList.add('visible');
+        }
+
+        // ===================== TIMED QUIZ FUNCTIONS =====================
+        function startTimedQuiz(sectionKey) {
+            // Auto-start background music when quiz begins
+            if (!musicPlaying && youtubePlayer && youtubePlayer.playVideo) {
+                youtubePlayer.playVideo();
+                const btn = document.getElementById('musicToggle');
+                const icon = document.getElementById('musicIcon');
+                if (btn) btn.classList.add('playing');
+                if (icon) icon.className = 'fas fa-pause';
+                musicPlaying = true;
+            }
+            
+            initTimedQuizState(sectionKey);
+            const state = timedQuizStates[sectionKey];
+            const config = timedQuizConfigs[sectionKey];
+            
+            // Hide start screen
+            const startScreen = document.getElementById(config.startScreenId);
+            startScreen.classList.add('fade-out');
+            
+            setTimeout(() => {
+                startScreen.style.display = 'none';
+                document.getElementById(config.questionScreenId).classList.add('active');
+                loadTimedQuestion(sectionKey, 0);
+            }, 400);
+        }
+
+        function loadTimedQuestion(sectionKey, index) {
+            const state = timedQuizStates[sectionKey];
+            const config = timedQuizConfigs[sectionKey];
+            const question = state.shuffledData[index];
+            
+            state.isAnswered = false;
+            state.timeLeft = config.timePerQuestion;
+
+            // Update header
+            document.getElementById(config.currentQNumId).textContent = index + 1;
+            document.getElementById(config.totalQNumId).textContent = state.shuffledData.length;
+
+            // Update type badge
+            const typeBadge = document.getElementById(config.questionTypeId);
+            if (question.type === 'mcq') {
+                typeBadge.textContent = 'Multiple Choice';
+                typeBadge.style.background = 'rgba(197, 160, 89, 0.15)';
+            } else {
+                typeBadge.textContent = 'Fact or Bluff';
+                typeBadge.style.background = 'rgba(136, 14, 79, 0.3)';
+            }
+
+            // Update question text
+            document.getElementById(config.questionTextId).textContent = question.question;
+
+            // Build options
+            const optionsContainer = document.getElementById(config.optionsContainerId);
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach(opt => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'quiz-option';
+                optionDiv.dataset.value = opt.letter;
+                optionDiv.innerHTML = `
+                    <span class="option-letter">${opt.letter}</span>
+                    <span>${opt.text}</span>
+                `;
+                optionDiv.addEventListener('click', () => selectTimedAnswer(sectionKey, opt.letter));
+                optionsContainer.appendChild(optionDiv);
+            });
+
+            // Reset feedback and next button
+            document.getElementById(config.feedbackPanelId).classList.remove('show');
+            document.getElementById(config.nextBtnContainerId).style.display = 'none';
+
+            // Reset timer display
+            const timerDisplay = document.getElementById(config.timerDisplayId);
+            timerDisplay.textContent = config.timePerQuestion;
+            timerDisplay.classList.remove('urgent');
+            
+            const timerBar = document.getElementById(config.timerBarFillId);
+            timerBar.style.width = '100%';
+            timerBar.classList.remove('urgent');
+
+            // Start timer
+            startTimedTimer(sectionKey);
+        }
+
+        function startTimedTimer(sectionKey) {
+            const state = timedQuizStates[sectionKey];
+            const config = timedQuizConfigs[sectionKey];
+            
+            if (state.timer) clearInterval(state.timer);
+            
+            const timerDisplay = document.getElementById(config.timerDisplayId);
+            const timerBar = document.getElementById(config.timerBarFillId);
+            
+            state.timer = setInterval(() => {
+                if (state.isAnswered) {
+                    clearInterval(state.timer);
+                    return;
+                }
+                
+                state.timeLeft--;
+                timerDisplay.textContent = state.timeLeft;
+                
+                const percentage = (state.timeLeft / config.timePerQuestion) * 100;
+                timerBar.style.width = percentage + '%';
+                
+                if (state.timeLeft <= 3) {
+                    timerDisplay.classList.add('urgent');
+                    timerBar.classList.add('urgent');
+                }
+                if (state.timeLeft <= 0) {
+                    clearInterval(state.timer);
+                    handleTimedTimeout(sectionKey);
+                }
+            }, 1000);
+        }
+
+        function selectTimedAnswer(sectionKey, selectedValue) {
+            const state = timedQuizStates[sectionKey];
+            if (state.isAnswered) return;
+            state.isAnswered = true;
+            
+            if (state.timer) clearInterval(state.timer);
+            
+            const question = state.shuffledData[state.currentIndex];
+            const isCorrect = selectedValue === question.correct;
+            
+            state.answers.push({
+                question: question.question,
+                selected: selectedValue,
+                correct: question.correct,
+                isCorrect: isCorrect,
+                isTimeout: false,
+                explanation: question.explanation
+            });
+            
+            if (isCorrect) state.score++;
+            
+            // Visual feedback
+            const config = timedQuizConfigs[sectionKey];
+            const options = document.querySelectorAll(`#${config.optionsContainerId} .quiz-option`);
+            options.forEach(opt => {
+                opt.classList.add('disabled');
+                const optValue = opt.dataset.value;
+                
+                if (optValue === question.correct) {
+                    opt.classList.add('reveal-correct');
+                }
+                
+                if (optValue === selectedValue) {
+                    if (isCorrect) {
+                        opt.classList.add('correct');
+                    } else {
+                        opt.classList.add('wrong');
+                    }
+                }
+            });
+            
+            showTimedFeedback(sectionKey, isCorrect, false, question.explanation);
+            document.getElementById(config.nextBtnContainerId).style.display = 'block';
+        }
+
+        function handleTimedTimeout(sectionKey) {
+            const state = timedQuizStates[sectionKey];
+            state.isAnswered = true;
+            
+            const question = state.shuffledData[state.currentIndex];
+            const config = timedQuizConfigs[sectionKey];
+            
+            state.answers.push({
+                question: question.question,
+                selected: null,
+                correct: question.correct,
+                isCorrect: false,
+                isTimeout: true,
+                explanation: question.explanation
+            });
+            
+            // Reveal correct answer
+            const options = document.querySelectorAll(`#${config.optionsContainerId} .quiz-option`);
+            options.forEach(opt => {
+                opt.classList.add('disabled');
+                if (opt.dataset.value === question.correct) {
+                    opt.classList.add('reveal-correct');
+                }
+            });
+            
+            showTimedFeedback(sectionKey, false, true, question.explanation);
+            document.getElementById(config.nextBtnContainerId).style.display = 'block';
+        }
+
+        function showTimedFeedback(sectionKey, isCorrect, isTimeout, explanation) {
+            const config = timedQuizConfigs[sectionKey];
+            const panel = document.getElementById(config.feedbackPanelId);
+            const title = document.getElementById(config.feedbackTitleId);
+            const text = document.getElementById(config.feedbackExplanationId);
+            
+            panel.classList.remove('correct-feedback', 'wrong-feedback', 'timeout-feedback');
+            
+            if (isTimeout) {
+                panel.classList.add('timeout-feedback');
+                title.innerHTML = '⌛Time\'s Up!';
+            } else if (isCorrect) {
+                panel.classList.add('correct-feedback');
+                title.innerHTML = '✅Correct!';
+            } else {
+                panel.classList.add('wrong-feedback');
+                title.innerHTML = '❌Incorrect';
+            }
+            
+            text.textContent = explanation;
+            panel.classList.add('show');
+        }
+
+        function nextTimedQuestion(sectionKey) {
+            const state = timedQuizStates[sectionKey];
+            state.currentIndex++;
+            
+            if (state.currentIndex >= state.shuffledData.length) {
+                showTimedResults(sectionKey);
+                return;
+            }
+            
+            const config = timedQuizConfigs[sectionKey];
+            const questionScreen = document.getElementById(config.questionScreenId);
+            questionScreen.style.opacity = '0';
+            questionScreen.style.transform = 'translateX(-20px)';
+            
+            setTimeout(() => {
+                loadTimedQuestion(sectionKey, state.currentIndex);
+                questionScreen.style.transition = 'all 0.4s ease';
+                questionScreen.style.opacity = '1';
+                questionScreen.style.transform = 'translateX(0)';
+            }, 300);
+        }
+
+        function showTimedResults(sectionKey) {
+            const state = timedQuizStates[sectionKey];
+            const config = timedQuizConfigs[sectionKey];
+            
+            if (musicPlaying && youtubePlayer && youtubePlayer.pauseVideo) {
+        youtubePlayer.pauseVideo();
+        const btn = document.getElementById('musicToggle');
+        const icon = document.getElementById('musicIcon');
+        if (btn) btn.classList.remove('playing');
+        if (icon) icon.className = 'fas fa-play';
+        musicPlaying = false;
+    }
+            
+            document.getElementById(config.questionScreenId).classList.remove('active');
+            document.getElementById(config.resultsScreenId).classList.add('active');
+            
+            const total = state.shuffledData.length;
+            const score = state.score;
+            const percentage = Math.round((score / total) * 100);
+            
+            document.getElementById(config.resultsScoreId).textContent = `${score}/${total}`;
+            
+            const icon = document.getElementById(config.resultsIconId);
+            const message = document.getElementById(config.resultsMessageId);
+            
+            if (percentage >= 90) {
+                icon.textContent = '🥳';
+                message.textContent = 'Outstanding! You\'re a subatomic expert!';
+            } else if (percentage >= 70) {
+                icon.textContent = '😉';
+                message.textContent = 'Great job! You know your particles well!';
+            } else if (percentage >= 50) {
+                icon.textContent = '🙂';
+                message.textContent = 'Good effort! Keep studying those atoms!';
+            } else {
+                icon.textContent = '🥹';
+                message.textContent = 'Keep learning! Review the material and try again.';
+            }
+            
+            // Build breakdown
+            const breakdown = document.getElementById(config.resultsBreakdownId);
+            breakdown.innerHTML = '';
+            
+            state.answers.forEach((ans, idx) => {
+                const item = document.createElement('div');
+                item.className = 'result-item';
+                
+                let statusClass, statusIcon, itemClass;
+                if (ans.isTimeout) {
+                    statusClass = 'timeout-icon';
+                    statusIcon = '⌛';
+                    itemClass = 'timeout-item';
+                } else if (ans.isCorrect) {
+                    statusClass = 'correct-icon';
+                    statusIcon = '✅';
+                    itemClass = 'correct-item';
+                } else {
+                    statusClass = 'wrong-icon';
+                    statusIcon = '❌';
+                    itemClass = 'wrong-item';
+                }
+                
+                item.classList.add(itemClass);
+                
+                const questionData = state.shuffledData[idx];
+                const correctOption = questionData.options.find(o => o.letter === ans.correct);
+                const selectedOption = ans.selected ? questionData.options.find(o => o.letter === ans.selected) : null;
+                
+                item.innerHTML = `
+                    <div class="result-status ${statusClass}">${statusIcon}</div>
+                    <div class="result-details">
+                        <div class="result-q-text">Q${idx + 1}: ${ans.question.substring(0, 60)}...</div>
+                        <div class="result-answer">
+                            ${ans.isTimeout 
+                                ? `⌛Time ran out! Correct: <b>${correctOption.text}</b>` 
+                                : ans.isCorrect 
+                                    ? `✅Correct: <b>${correctOption.text}</b>`
+                                    : `❌You chose <b>${selectedOption ? selectedOption.text : 'nothing'}</b> — Correct: <b>${correctOption.text}</b>`
+                            }
+                        </div>
+                    </div>
+                `;
+                
+                breakdown.appendChild(item);
+            });
+        }
+
+        function restartTimedQuiz(sectionKey) {
+            const config = timedQuizConfigs[sectionKey];
+            const resultsScreen = document.getElementById(config.resultsScreenId);
+            resultsScreen.classList.remove('active');
+            
+            const startScreen = document.getElementById(config.startScreenId);
+            startScreen.style.display = 'block';
+            startScreen.classList.remove('fade-out');
+            startScreen.style.opacity = '1';
+            startScreen.style.transform = 'translateY(0)';
+            
+            initTimedQuizState(sectionKey);
+        }
+
+        // ===================== INITIALIZATION =====================
+        document.addEventListener('DOMContentLoaded', function() {
+            initAllSections();
+            
+            
+            disableDoubleClickZoom();
+            setBackground('');
+            loadYouTubeAPI();
+            setTimeout(function() {
+                const musicContainer = document.getElementById('bgMusicContainer');
+                if (musicContainer) musicContainer.classList.add('visible');
+            }, 1000);       
+        });
+    </script>
+</body>
+</html>
+  
+  
+  
