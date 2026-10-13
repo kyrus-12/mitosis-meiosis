@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="referrer" content="no-referrer-when-downgrade">
-    <title>MITOSIS AND MEIOSIS</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <style>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="referrer" content="no-referrer-when-downgrade">
+        <title>MITOSIS AND MEIOSIS</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+        <style>
         :root {
             --bg: #1a0510;
             --surface: rgba(60, 15, 40, 0.85);  
@@ -16,9 +16,10 @@
             --accent-2: #e91e63;
             --gold: #ff80ab;
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
+        * { margin: 0; 
+            padding: 0; 
+            box-sizing: border-box;
+        }
         body {
             font-family: 'Segoe UI', system-ui, sans-serif;
             background: #0f1419;
@@ -26,10 +27,8 @@
             min-height: 100vh;
             overflow-x: hidden;
             font-size: 1.3rem;
-
             font-size: clamp(1.1rem, 1vw + 0.8rem, 1.4rem);
         }
-        
         .bg-layer {
             position: fixed;
             top: 0; left: 0;
@@ -43,19 +42,17 @@
             background-attachment: fixed;
             filter: grayscale(25%) brightness(1.6) contrast(1.0) sepia(10%);
         }
-    
-    
         .bg-layer::after {
             content: '';
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
             background: linear-gradient(
-        160deg,
-        rgba(245, 248, 252, 0.7) 0%,       
-        rgba(235, 240, 248, 0.6) 40%,      
-        rgba(225, 235, 250, 0.75) 100%     
-            );
+                 160deg,
+                 rgba(245, 248, 252, 0.7) 0%,       
+                 rgba(235, 240, 248, 0.6) 40%,      
+                 rgba(225, 235, 250, 0.75) 100%     
+                  );
         }
         .header {
             position: fixed;
@@ -70,17 +67,14 @@
             z-index: 1000;
             gap: 10px;
         }
-
         .brand {
             font-size: 1.5rem;
             font-weight: 700;
             
             background:  var(--gold);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            --webkit-background-clip: text;
+            --webkit-text-fill-color: transparent;
         }
-
-        /* ===== SIDEBAR - FIXED LEFT ===== */
         .sidebar {
             position: fixed;
             top: 70px;
@@ -94,14 +88,12 @@
             overflow-y: auto;
             padding: 2rem 0;
         }
-
         .nav-menu {
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
             padding: 0 1.5rem;
         }
-
         .nav-item {
             padding: 1rem 1.5rem;
             border-radius: 12px;
@@ -110,18 +102,14 @@
             position: relative;
             font-size: 1rem;
         }
-
         .nav-item:hover {
             background: rgba(128, 0, 0, 0.2);
             transform: translateX(10px);
         }
-
         .nav-item.active {
             background: rgba(128, 0, 0, 0.3);
             border-left: 4px solid var(--gold);
         }
-
-        /* ===== MAIN CONTENT - FILLS REMAINING SPACE ===== */
         .main-content {
             margin-top: 70px;
             margin-left: 260px;
@@ -132,24 +120,18 @@
             width: calc(100% - 260px);
             display: flex;
             flex-direction: column;
-
-
             max-width: 1100px;
             margin-right: auto;
             margin-left: calc(260px + max(0px, (100% - 260px - 1100px) / 2));
         }
-    
-        
         .main-content > section.active {
             flex: 1;
         }
-
         html {
             scroll-padding-top: 80px;
             scroll-behavior: smooth;
             touch-action: manipulation;
         }
-
         .content-section {
             display: none;
             animation: fadeIn 0.5s ease;
@@ -161,14 +143,13 @@
             scroll-margin-top: 80px;  
             text-align: justify;
         }
-    
-    .content-section.active { display: block; }
-
+        .content-section.active { 
+            display: block; 
+        }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
         .intro-card {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid gray;
@@ -176,15 +157,12 @@
             padding: 3rem;
             width: 100%;
         }
-
         h1 {
            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            --webkit-background-clip: text;
+            --webkit-text-fill-color: transparent;
             margin-bottom: 1.5rem;
         }
-
-        /* ===== MEDIA ===== */
         .media-container {
             margin: 20px 0;
             padding: 15px;
@@ -194,21 +172,18 @@
             border: 1px dashed var(--gold);
             align-items: center;
         }
-
         .video-wrapper {
             position: relative;
             padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
         }
-
         .video-wrapper iframe {
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
             border-radius: 8px;
         }
-
         .img-fluid {
             width: 100%;
             max-width: 1000px;
@@ -216,7 +191,6 @@
             border-radius: 8px;
             margin-bottom: 10px;
         }
-
         .media-title {
             font-size: 1rem;
             font-weight: 700;
@@ -224,14 +198,9 @@
             margin-bottom: 12px;
             text-align: center;
         }
-
         .media-title:empty {
             display:none;
         }
-
-       
-
-        /* ===== EMBEDS ===== */
         .embed-container {
             margin: 20px 0;
             width: 100%;
@@ -239,21 +208,17 @@
             border-radius: 12px;
             border: 1px solid gray;
         }
-
         .embed-container iframe {
             width: 100%;
             height: 600px;
             border: none;
         }
-
-        /* ===== SOCIAL ===== */
         .social-container {
             display: flex;
             gap: 20px;
             justify-content: right;
             margin-top: 25px;
         }
-
         .social-btn {
             background: rgba(197, 160, 89, 0.1);
             color: var(--gold);
@@ -267,14 +232,11 @@
             transition: all 0.3s ease;
             font-size: 1.5rem;
         }
-
         .social-btn:hover {
             background: var(--gold);
             color: var(--bg);
             transform: translateY(-5px) scale(1.1);
         }
-
-        /* ===== FOOTER ===== */
         footer {
             width: 100%;
             text-align: center;
@@ -285,8 +247,6 @@
             margin-top: 2rem;
             flex-shrink: 0;
         }
-
-        /* ===== QUIZ STYLES ===== */
         .quiz-container {
             background: #c8cdd2;
             backdrop-filter: blur(10px);
@@ -296,19 +256,16 @@
             border-radius: 20px;
             transition: all 0.3s ease;
         }
-
         .quiz-container:hover {
             border-color: var(--gold);
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-
         .question {
             font-size: 1.3rem;
             font-weight: 700;
             color: black;
             margin-bottom: 20px;
         }
-
         .option {
             display: block;
             position: relative;
@@ -320,30 +277,25 @@
             cursor: pointer;
             transition: all 0.2s ease;
         }
-
         .option:hover {
             background: rgba(197, 160, 89, 0.1);
             transform: translateX(5px);
             border-color: var(--gold);
         }
-
         .option input {
             margin-right: 15px;
             accent-color: var(--gold);
         }
-
         .quiz-container.show-results .option.correct-choice {
-            border-color: #28a745 !important;
-            background: rgba(40, 167, 69, 0.15) !important;
+            border-color: #28a745;
+            background: rgba(40, 167, 69, 0.15);
             color: black;
         }
-
         .quiz-container.show-results .option.wrong-choice {
-            border-color: #dc3545 !important;
-            background: rgba(220, 53, 69, 0.15) !important;
+            border-color: #dc3545;
+            background: rgba(220, 53, 69, 0.15);
             color: black;
         }
-
         .feedback {
             margin-top: 15px;
             padding: 15px;
@@ -352,12 +304,10 @@
             line-height: 1.5;
             animation: slideIn 0.4s ease;
         }
-
         @keyframes slideIn {
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
         .button-group {
             display: flex;
             gap: 15px;
@@ -367,7 +317,6 @@
             max-width: 620px;
             flex-wrap: wrap;
         }
-
         .btn-submit {
             flex: 1;
             min-width: 200px;
@@ -381,12 +330,10 @@
             cursor: pointer;
             transition: 0.3s;
         }
-
         .btn-submit:hover {
             transform: scale(1.05);
             box-shadow: 0 0 20px rgba(197, 160, 89, 0.5);
         }
-
         .btn-reset {
             flex: 1;
             min-width: 200px;
@@ -400,15 +347,12 @@
             cursor: pointer;
             transition: 0.3s;
         }
-
         .btn-reset:hover {
             background: var(--gold);
             color: var(--bg);
             transform: scale(1.05);
             box-shadow: 0 0 20px rgba(197, 160, 89, 0.5);
         }
-
-        /* ===== MATCHING ===== */
         .matching-container {
             background: #c8cdd2;
             backdrop-filter: blur(10px);
@@ -418,25 +362,21 @@
             border-radius: 20px;
             transition: all 0.3s ease;
         }
-
         .matching-container:hover {
             border-color: var(--gold);
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-
         .matching-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 30px;
             margin-top: 20px;
         }
-
         .matching-column {
             display: flex;
             flex-direction: column;
             gap: 12px;
         }
-
         .matching-column-title {
             font-size: 1rem;
             font-weight: 600;
@@ -446,7 +386,6 @@
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-
         .matching-item {
             padding: 14px 18px;
             background: rgba(255, 255, 255, 0.03);
@@ -459,83 +398,74 @@
             position: relative;
             user-select: none;
         }
-
         .matching-item:hover {
             background: rgba(197, 160, 89, 0.1);
             border-color: var(--gold);
             transform: translateX(5px);
         }
-
         .matching-item.selected {
-            border-color: var(--gold) !important;
-            background: rgba(197, 160, 89, 0.2) !important;
+            border-color: var(--gold);
+            background: rgba(197, 160, 89, 0.2);
             box-shadow: 0 0 15px rgba(197, 160, 89, 0.3);
         }
-
         .matching-item.matched {
             cursor: default;
             pointer-events: none;
         }
-
         .matching-item.matched.correct-match {
-            border-color: #28a745 !important;
-            background: rgba(40, 167, 69, 0.15) !important;
-            color: black !important;
+            border-color: #28a745;
+            background: rgba(40, 167, 69, 0.15);
+            color: black;
         }
-
         .matching-item.matched.wrong-match {
-            border-color: #dc3545 !important;
-            background: rgba(220, 53, 69, 0.15) !important;
-            color: black !important;
+            border-color: #dc3545;
+            background: rgba(220, 53, 69, 0.15);
+            color: black;
         }
-
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
             10%, 30%, 50%, 70%, 90% { transform: translateX(-6px); }
             20%, 40%, 60%, 80% { transform: translateX(6px); }
         }
-
         .matching-item.shake {
             animation: shake 0.5s ease-in-out;
         }
-
         .matching-item.matched.correct-match.pair-0 {
-            border-color: #28a745 !important;
-            background: rgba(40, 167, 69, 0.2) !important;
-            color: black
+            border-color: #28a745;
+            background: rgba(40, 167, 69, 0.2);
+            color: black;
             box-shadow: 0 0 10px rgba(40, 167, 69, 0.3);        
         }
         .matching-item.matched.correct-match.pair-1 {
-            border-color: #17a2b8 !important;
-            background: rgba(23, 162, 184, 0.2) !important;
-            color: black
+            border-color: #17a2b8;
+            background: rgba(23, 162, 184, 0.2);
+            color: black;
             box-shadow: 0 0 10px rgba(23, 162, 184, 0.3);
         }
         .matching-item.matched.correct-match.pair-2 {
-            border-color: #ffc107 !important;
-            background: rgba(255, 193, 7, 0.2) !important;
-            color: black
+            border-color: #ffc107;
+            background: rgba(255, 193, 7, 0.2);
+            color: black;
             box-shadow: 0 0 10px rgba(255, 193, 7, 0.3);
         }
         .matching-item.matched.correct-match.pair-3 {
-            border-color: #fd7e14 !important;
-            background: rgba(253, 126, 20, 0.2) !important;
-            color: black
+            border-color: #fd7e14;
+            background: rgba(253, 126, 20, 0.2);
+            color: black;
             box-shadow: 0 0 10px rgba(253, 126, 20, 0.3);
         }
         .matching-item.matched.correct-match.pair-4 {
-            border-color: #6f42c1 !important;
-            background: rgba(111, 66, 193, 0.2) !important;
-            color: black
+            border-color: #6f42c1;
+            background: rgba(111, 66, 193, 0.2);
+            color: black;
             box-shadow: 0 0 10px rgba(111, 66, 193, 0.3);
         }
         .matching-item.matched.correct-match.pair-5 {
-            border-color: #e83e8c !important;
-            background: rgba(232, 62, 140, 0.2) !important;
-            color: black
+            border-color: #e83e8c;
+            background: rgba(232, 62, 140, 0.2);
+            color: black;
             box-shadow: 0 0 10px rgba(232, 62, 140, 0.3);
         }
-
         .matching-feedback {
             margin-top: 15px;
             padding: 15px;
@@ -545,25 +475,21 @@
             animation: slideIn 0.4s ease;
             display: none;
         }
-
         .matching-feedback.correct-feedback {
             background: rgba(40, 167, 69, 0.1);
             border: 1px solid rgba(40, 167, 69, 0.3);
             color: green;
         }
-
         .matching-feedback.wrong-feedback {
             background: rgba(220, 53, 69, 0.1);
             border: 1px solid rgba(220, 53, 69, 0.3);
             color: red;
         }
-
         .matching-feedback.clue-feedback {
             background: rgba(197, 160, 89, 0.1);
             border: 1px solid rgba(197, 160, 89, 0.3);
             color: black;
         }
-
         .matching-progress {
             display: flex;
             align-items: center;
@@ -572,7 +498,6 @@
             font-size: 0.9rem;
             color: black;
         }
-
         .matching-progress-bar {
             flex: 1;
             height: 6px;
@@ -580,15 +505,12 @@
             border-radius: 3px;
             overflow: hidden;
         }
-
         .matching-progress-fill {
             height: 100%;
             background: var(--gold);
             border-radius: 3px;
             transition: width 0.4s ease;
         }
-
-        /* ===== SCORE SUMMARY (SECTION-SCOPED) ===== */
         .score-summary-box {
             display: none;
             text-align: center;
@@ -598,8 +520,6 @@
             border-radius: 15px;
             margin-bottom: 20px;
         }
-
-        /* ===== MOBILE ===== */
         @media (max-width: 768px) {
             .sidebar {
                 width: 100%;
@@ -610,14 +530,12 @@
                 border-bottom: 1px solid rgba(197, 160, 89, 0.2);
                 padding: 1rem 0;
             }
-
             .nav-menu {
                 flex-direction: row;
                 flex-wrap: wrap;
                 padding: 0 1rem;
                 gap: 0.3rem;
             }
-
             .nav-item {
                 padding: 0.6rem 1rem;
                 font-size: 0.9rem;
@@ -625,11 +543,9 @@
                 min-width: 140px;
                 text-align: center;
             }
-
             .nav-item:hover {
                 transform: none;
             }
-
             .main-content {
                 margin-left: 0;
                 margin-top: 0;
@@ -637,34 +553,24 @@
                 padding: 1rem;
                 padding-bottom: 70px;
             }
-
             .matching-grid {
                 grid-template-columns: 1fr;
                 gap: 15px;
             }
-
             .button-group {
                 flex-direction: column;
             }
-
             .btn-submit, .btn-reset {
                 width: 100%;
             }
         }
-    
         .bg-layer.has-image {
             background-image: var(--bg-image);
             background-size: cover;
         }
-    
-    
-   
-        /* ===== TIMED QUIZ SYSTEM (SECTION-SCOPED) ===== */
         .timed-quiz-wrapper {
             margin-top: 2rem;
         }
-
-        /* Start Screen */
         .quiz-start-screen {
             text-align: center;
             padding: 3rem 2rem;
@@ -673,24 +579,20 @@
             border-radius: 24px;
             animation: fadeInUp 0.6s ease;
         }
-
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
         .quiz-start-screen h2 {
             font-size: 2rem;
             color: black;
             margin-bottom: 1rem;
         }
-
         .quiz-start-screen p {
-            color: black
+            color: black;
             margin-bottom: 2rem;
             line-height: 1.6;
         }
-
         .quiz-rules {
             text-align: left;
             max-width: 500px;
@@ -699,7 +601,6 @@
             border-radius: 16px;
             padding: 1.5rem 2rem;
         }
-
         .quiz-rules li {
             margin-bottom: 0.8rem;
             color: black;
@@ -707,14 +608,12 @@
             position: relative;
             padding-left: 1.5rem;
         }
-
         .quiz-rules li::before {
             content: '-';
             position: absolute;
             left: 0;
             color: black;
         }
-
         .btn-start-quiz {
             padding: 18px 60px;
             background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
@@ -727,28 +626,21 @@
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3);
         }
-
         .btn-start-quiz:hover {
             transform: translateY(-3px) scale(1.05);
             box-shadow: 0 8px 25px rgba(233, 30, 99, 0.5);
         }
-
-        /* Question Screen */
         .quiz-question-screen {
             display: none;
             animation: fadeIn 0.5s ease;
         }
-
         .quiz-question-screen.active {
             display: block;
         }
-
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
-        /* Progress & Timer Bar */
         .quiz-header {
             display: flex;
             justify-content: space-between;
@@ -759,28 +651,23 @@
             border-radius: 16px;
             border: 1px solid gray;
         }
-
         .quiz-progress {
             font-size: 1rem;
             color: black;
         }
-
         .quiz-progress span {
             color: black;
             font-weight: bold;
         }
-
         .timer-container {
             display: flex;
             align-items: center;
             gap: 10px;
         }
-
         .timer-label {
             font-size: 0.9rem;
             color: black;
         }
-
         .timer-display {
             font-size: 1.5rem;
             font-weight: bold;
@@ -788,17 +675,14 @@
             color: black;
             transition: color 0.3s ease;
         }
-
         .timer-display.urgent {
             color: #dc3545;
             animation: timerPulse 0.5s ease infinite;
         }
-
         @keyframes timerPulse {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.1); }
         }
-
         .timer-bar {
             width:70%;
             height: 6px;
@@ -807,7 +691,6 @@
             margin-top: 1rem;
             overflow: hidden;
         }
-
         .timer-bar-fill {
             height: 70%;
             background: linear-gradient(90deg, var(--gold), var(--accent-2));
@@ -815,12 +698,9 @@
             transition: width 1s linear;
             width: 100%;
         }
-
         .timer-bar-fill.urgent {
             background: linear-gradient(90deg, #dc3545, #ff4444);
         }
-
-        /* Question Card */
         .question-card {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
@@ -830,7 +710,6 @@
             margin-bottom: 2rem;
             transition: all 0.3s ease;
         }
-
         .question-type-badge {
             display: inline-block;
             padding: 6px 14px;
@@ -843,7 +722,6 @@
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-
         .question-text {
             font-size: 1.4rem;
             font-weight: 600;
@@ -851,14 +729,11 @@
             margin-bottom: 2rem;
             line-height: 1.5;
         }
-
-        /* Options */
         .options-container {
             display: flex;
             flex-direction: column;
             gap: 1rem;
         }
-
         .quiz-option {
             padding: 0.8rem 0.9rem;
             background: rgba(255, 255, 255, 0.03);
@@ -871,13 +746,11 @@
             gap: 0.5rem;
             font-size: 1.2rem;
         }
-
         .quiz-option:hover:not(.disabled) {
             background: rgba(197, 160, 89, 0.1);
             border-color: var(--gold);
             transform: translateX(8px);
         }
-
         .quiz-option .option-letter {
             width: 36px;
             height: 36px;
@@ -888,55 +761,45 @@
             justify-content: center;
             font-weight: bold;
             font-size: 1rem;
-            color: black
+            color: black;
             flex-shrink: 0;
             transition: all 0.3s ease;
         }
-
         .quiz-option.correct {
-            border-color: #28a745 !important;
-            background: rgba(40, 167, 69, 0.15) !important;
+            border-color: #28a745;
+            background: rgba(40, 167, 69, 0.15);
             animation: correctPulse 0.5s ease;
         }
-
         .quiz-option.correct .option-letter {
             background: #28a745;
             color: white;
         }
-
         .quiz-option.wrong {
-            border-color: #dc3545 !important;
-            background: rgba(220, 53, 69, 0.15) !important;
+            border-color: #dc3545;
+            background: rgba(220, 53, 69, 0.15);
             animation: shake 0.5s ease;
         }
-
         .quiz-option.wrong .option-letter {
             background: #dc3545;
             color: white;
         }
-
         .quiz-option.disabled {
             pointer-events: none;
             opacity: 0.7;
         }
-
         .quiz-option.reveal-correct {
-            border-color: #28a745 !important;
-            background: rgba(40, 167, 69, 0.1) !important;
+            border-color: #28a745;
+            background: rgba(40, 167, 69, 0.1);
         }
-
         .quiz-option.reveal-correct .option-letter {
             background: #28a745;
             color: white;
         }
-
         @keyframes correctPulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.02); }
             100% { transform: scale(1); }
         }
-
-        /* Feedback Panel */
         .feedback-panel {
             margin-top: 1.5rem;
             padding: 1.5rem;
@@ -944,52 +807,42 @@
             animation: slideDown 0.4s ease;
             display: none;
         }
-
         .feedback-panel.show {
             display: block;
         }
-
         @keyframes slideDown {
             from { opacity: 0; transform: translateY(-15px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
         .feedback-panel.correct-feedback {
             background: rgba(40, 167, 69, 0.1);
             border: 1px solid rgba(40, 167, 69, 0.3);
             color: #90ee90;
         }
-
         .feedback-panel.wrong-feedback {
             background: rgba(220, 53, 69, 0.1);
             border: 1px solid rgba(220, 53, 69, 0.3);
             color: #ff6b6b;
         }
-
         .feedback-panel.timeout-feedback {
             background: rgba(255, 193, 7, 0.1);
             border: 1px solid rgba(255, 193, 7, 0.3);
             color: #ffd54f;
         }
-
         .feedback-title {
             font-weight: bold;
             font-size: 1.2rem;
             margin-bottom: 0.5rem;
         }
-
         .feedback-explanation {
             line-height: 1.6;
             color: black;
         }
-
-        /* Next Button */
         .next-btn-container {
             text-align: center;
             margin-top: 2rem;
             animation: fadeIn 0.4s ease 0.2s both;
         }
-
         .btn-next {
             padding: 14px 50px;
             background: var(--gold);
@@ -1001,48 +854,39 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-
         .btn-next:hover {
             transform: scale(1.05);
             box-shadow: 0 0 20px rgba(255, 128, 171, 0.5);
         }
-
-        /* Results Screen */
         .quiz-results-screen {
             display: none;
             text-align: center;
             padding: 3rem 2rem;
             animation: fadeInUp 0.6s ease;
         }
-
         .quiz-results-screen.active {
             display: block;
         }
-
         .results-icon {
             font-size: 4rem;
             margin-bottom: 1rem;
         }
-
         .results-score {
             font-size: 3rem;
             font-weight: bold;
             color: black;
             margin-bottom: 0.5rem;
         }
-
         .results-message {
             font-size: 1.3rem;
             color: black;
             margin-bottom: 2rem;
         }
-
         .results-breakdown {
             max-width: 600px;
             margin: 0 auto 2rem;
             text-align: left;
         }
-
         .result-item {
             display: flex;
             align-items: center;
@@ -1054,19 +898,15 @@
             border-left: 4px solid transparent;
             transition: all 0.3s ease;
         }
-
         .result-item.correct-item {
             border-left-color: #28a745;
         }
-
         .result-item.wrong-item {
             border-left-color: #dc3545;
         }
-
         .result-item.timeout-item {
             border-left-color: #ffc107;
         }
-
         .result-status {
             width: 32px;
             height: 32px;
@@ -1077,37 +917,30 @@
             font-size: 0.9rem;
             flex-shrink: 0;
         }
-
         .result-status.correct-icon {
             background: rgba(40, 167, 69, 0.2);
             color: #28a745;
         }
-
         .result-status.wrong-icon {
             background: rgba(220, 53, 69, 0.2);
             color: #dc3545;
         }
-
         .result-status.timeout-icon {
             background: rgba(255, 193, 7, 0.2);
             color: #ffc107;
         }
-
         .result-details {
             flex: 1;
         }
-
         .result-q-text {
             font-size: 0.95rem;
             color: black;
             margin-bottom: 0.2rem;
         }
-
         .result-answer {
             font-size: 0.85rem;
             color: black;
         }
-
         .btn-restart {
             padding: 16px 50px;
             background: transparent;
@@ -1119,50 +952,41 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-
         .btn-restart:hover {
             background: var(--gold);
             color: var(--bg);
             transform: scale(1.05);
         }
-
-        /* Transitions */
         .fade-out {
             animation: fadeOut 0.4s ease forwards;
         }
-
         @keyframes fadeOut {
             from { opacity: 1; transform: translateY(0); }
             to { opacity: 0; transform: translateY(-20px); }
         }
+        .music-toggle-inline {
+            background: none;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            width: 40px;
+            height: 40px;
+            border-radius: 20%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+        .music-toggle-inline:hover {
+            background: var(--gold);
+            color: var(--bg);
+        }
 
-        /* ===== BACKGROUND MUSIC (DISCUSSION ONLY) ===== */
-            .music-toggle-inline {
-    
-    background: none;
-    border: 2px solid var(--gold);
-    color: var(--gold);
-    width: 40px;
-    height: 40px;
-    border-radius: 20%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    font-size: 0.9rem;
-                flex-shrink: 0;
-}
-
-.music-toggle-inline:hover {
-    background: var(--gold);
-    color: var(--bg);
-}
-
-.music-toggle-inline.playing {
-    animation: pulse 2s infinite;
-}
-    
+        .music-toggle-inline.playing {
+            animation: pulse 2s infinite;
+        }
         .music-toggle {
             background: none;
             border: 2px solid var(--gold);
@@ -1177,216 +1001,170 @@
             transition: all 0.3s ease;
             font-size: 1rem;
         }
-
         .music-toggle:hover {
             background: var(--gold);
             color: var(--bg);
         }
-
         .music-toggle.playing {
             animation: pulse 2s infinite;
         }
-
         @keyframes pulse {
             0%, 100% { box-shadow: 0 0 0 0 rgba(255, 128, 171, 0.4); }
             50% { box-shadow: 0 0 0 10px rgba(255, 128, 171, 0); }
         }
-
         .music-label {
             font-size: 0.85rem;
             color: var(--text-muted);
         }
-
-
- /* ===== AUTOMATIC FEEDBACK CARD STYLES ===== */
-.auto-card {
-    background: #c8cdd2;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(197, 160, 89, 0.2);
-    padding: 25px;
-    margin-bottom: 30px;
-    border-radius: 20px;
-    transition: all 0.3s ease;
-}
-
-.auto-card:hover {
-    border-color: var(--gold);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-}
-
-.auto-info-box {
-    background: rgba(255, 255, 255, 0.4);
-    border-left: 5px solid var(--accent-1);
-    padding: 15px 20px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    color: #0a0a0a;
-    font-size: 1.2rem;
-    line-height: 1.6;
-}
-
-.auto-question {
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: black;
-    margin-bottom: 15px;
-}
-
-.auto-option {
-    display: block;
-    padding: 14px 18px;
-    margin-bottom: 10px;
-    background: rgba(255, 255, 255, 0.6);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    color: black;
-    user-select: none;
-}
-
-.auto-option:hover {
-    background: rgba(197, 160, 89, 0.15);
-    transform: translateX(5px);
-    border-color: var(--gold);
-}
-
-/* State changes when answered */
-.auto-card.answered .auto-option {
-    pointer-events: none; /* Block further clicking */
-    opacity: 0.6;
-}
-
-.auto-card.answered .auto-option.correct-choice {
-    border-color: #28a745 !important;
-    background: rgba(40, 167, 69, 0.25) !important;
-    opacity: 1 !important;
-    font-weight: bold;
-}
-
-.auto-card.answered .auto-option.wrong-choice {
-    border-color: #dc3545 !important;
-    background: rgba(220, 53, 69, 0.25) !important;
-    opacity: 1 !important;
-}
-
-.auto-feedback-panel {
-    display: none; /* Hidden by default */
-    margin-top: 15px;
-    padding: 15px;
-    border-radius: 10px;
-    font-size: 1.1rem;
-    line-height: 1.5;
-    animation: slideIn 0.4s ease;
-}
-
-.auto-card.answered .auto-feedback-panel {
-    display: block; /* Shown automatically when answered */
-}
-
-.auto-feedback-panel.correct-style {
-    background: rgba(40, 167, 69, 0.15);
-    border: 1px solid #28a745;
-    color: #155724;
-}
-
-.auto-feedback-panel.wrong-style {
-    background: rgba(220, 53, 69, 0.15);
-    border: 1px solid #dc3545;
-    color: #721c24;
-}
-
-            
-            /* Prevent caret cursors and accidental selection lines on interactive components */
-.nav-item, 
-.option, 
-.auto-option, 
-.quiz-container, 
-.auto-card,
-.btn-reset,
-button {
-    /* Prevents the blinking caret from appearing upon clicking */
-    user-select: none; 
-    -webkit-user-select: none; /* Safari override */
-    -moz-user-select: none;    /* Firefox override */
-    -ms-user-select: none;     /* IE/Edge override */
-    
-    /* Removes the browser-default active text input focus indication outline */
-    outline: none !important;
-}
-
-
-
-            /* Complete global ban on blinking caret cursors across interactive surfaces */
-.main-content,
-.main-content *,
-.sidebar,
-.sidebar * {
-    /* Prevents the browser from treating structural divs and layouts as editable text blocks */
-    user-select: none; 
-    -webkit-user-select: none; /* Safari */
-    -moz-user-select: none;    /* Firefox */
-    -ms-user-select: none;     /* IE/Edge */
-    
-    /* Disables default browser focus highlighting boundaries when elements are selected */
-    outline: none !important;
-    -webkit-tap-highlight-color: transparent; /* Smooth behavior on mobile clicks */
-}
-
-/* Re-allow standard selective highlights ONLY on actual student text entry inputs if you have them */
-.main-content input[type="text"], 
-.main-content textarea {
-    user-select: text !important;
-    -webkit-user-select: text !important;
-    -moz-user-select: text !important;
-}
-
-
-
-            .references-container {
-                word-break: break-all;
-                overflow-wrap: break-word;
-                text-align: left;
-                margin-top: 1rem;
-                padding: 1rem;
-            }
-
-            .references-container a {
-                text-decoration: underline;
-                word-break: break-all;
-            }
-                
-            /* Forces the container, any text nodes, and all nested elements inside to be solid black */
-.matching-item.wrong-match,
-div.matching-item.wrong-match,
-.matching-container .matching-item.wrong-match {
-    background: rgba(220, 53, 69, 0.25) !important;
-    border-color: #dc3545 !important;
-    color: #000000 !important;
-    box-shadow: 0 0 10px rgba(220, 53, 69, 0.5) !important;
-}
-
-/* Captures any text wrapped in structural tags like spans, paragraphs, or labels */
-.matching-item.wrong-match * {
-    color: #000000 !important;
-}
+        .auto-card {
+            background: #c8cdd2;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        .auto-card:hover {
+            border-color: var(--gold);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .auto-info-box {
+            background: rgba(255, 255, 255, 0.4);
+            border-left: 5px solid var(--accent-1);
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            color: #0a0a0a;
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+        .auto-question {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: black;
+            margin-bottom: 15px;
+        }
+        .auto-option {
+            display: block;
+            padding: 14px 18px;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: black;
+            user-select: none;
+        }
+        .auto-option:hover {
+            background: rgba(197, 160, 89, 0.15);
+            transform: translateX(5px);
+            border-color: var(--gold);
+        }
+        .auto-card.answered .auto-option {
+            pointer-events: none;
+            opacity: 0.6;
+        }
+        .auto-card.answered .auto-option.correct-choice {
+            border-color: #28a745;
+            background: rgba(40, 167, 69, 0.25);
+            opacity: 1;
+            font-weight: bold;
+        }
+        .auto-card.answered .auto-option.wrong-choice {
+            border-color: #dc3545;
+            background: rgba(220, 53, 69, 0.25);
+            opacity: 1;
+        }
+        .auto-feedback-panel {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            line-height: 1.5;
+            animation: slideIn 0.4s ease;
+        }
+        .auto-card.answered .auto-feedback-panel {
+            display: block; 
+        }
+        .auto-feedback-panel.correct-style {
+            background: rgba(40, 167, 69, 0.15);
+            border: 1px solid #28a745;
+            color: #155724;
+        }
+        .auto-feedback-panel.wrong-style {
+            background: rgba(220, 53, 69, 0.15);
+            border: 1px solid #dc3545;
+            color: #721c24;
+        }         
+        .nav-item, 
+        .option, 
+        .auto-option, 
+        .quiz-container, 
+        .auto-card,
+        .btn-reset,
+        button {
+            user-select: none; 
+            -webkit-user-select: none;
+            -moz-user-select: none;   
+            -ms-user-select: none;     
+            outline: none;
+        }
+        .main-content,
+        .main-content *,
+        .sidebar,
+        .sidebar * {
+            user-select: none; 
+            -webkit-user-select: none; 
+            -moz-user-select: none;   
+            -ms-user-select: none;     
+            outline: none;
+            -webkit-tap-highlight-color: transparent; 
+        }
+        .main-content input[type="text"], 
+        .main-content textarea {
+            user-select: text;
+            -webkit-user-select: text;
+            -moz-user-select: text;
+        }
+        .references-container {
+            word-break: break-all;
+            overflow-wrap: break-word;
+            text-align: left;
+            margin-top: 1rem;
+            padding: 1rem;
+        }
+        .references-container a {
+            text-decoration: underline;
+            word-break: break-all;
+        }
+        .matching-item.wrong-match,
+        div.matching-item.wrong-match,
+        .matching-container .matching-item.wrong-match {
+            background: rgba(220, 53, 69, 0.25);
+            border-color: #dc3545;
+            color: #000000;
+            box-shadow: 0 0 10px rgba(220, 53, 69, 0.5);
+        }
+        .matching-item.wrong-match * {
+            color: #000000;
+        }
 
 
 
     </style>
-</head>
-<body>
-    <div class="bg-layer"></div>
-
-    <header class="header">
-        <button class="music-toggle-inline" id="musicToggle" onclick="toggleDiscussionMusic()" title="Toggle study music">
-        <i class="fas fa-play" id="musicIcon"></i>
-    </button>
-        <div class="brand">HA-TOM? Blogspot</div>
-    </header>
-
-    <aside class="sidebar">
-        <nav class="nav-menu">
+    </head>
+    <body>
+        <div class="bg-layer"></div>
+        <header class="header">
+            <button class="music-toggle-inline" id="musicToggle" onclick="toggleDiscussionMusic()" title="Toggle study music">
+                <i class="fas fa-play" id="musicIcon"></i>
+            </button>
+            <div class="brand">Mi-TWO-sis and ME-YOU-sis</div>
+        </header>
+        <aside class="sidebar"></aside><nav class="nav-menu">
             <div class="nav-item active" onclick="switchTab('home')">Home</div>
             <div class="nav-item" onclick="switchTab('introduction')">Introduction</div>
             <div class="nav-item" onclick="switchTab('discussion')">Discussion</div>
@@ -1398,9 +1176,7 @@ div.matching-item.wrong-match,
             <div class="nav-item" onclick="switchTab('references')">References</div>
         </nav>
     </aside>
-    
-        <div id="youtube-player" style="display:none;"></div>
-
+    <div id="youtube-player" style="display:none;"></div>
     
     <main class="main-content">
         <section id="home" class="content-section active">
@@ -2341,83 +2117,55 @@ div.matching-item.wrong-match,
             <p>&copy; 2026 HA-TOM? Blogspot | Created by KA-AHATOM.</p>
         </footer>
     </main>
-
+    
     <script>
-
-        function checkAutoAnswer(selectedElement, isCorrect) {
-    // Find the container parent card element
-    const card = selectedElement.closest('.auto-card');
     
-    // If already answered, do nothing
-    if (card.classList.contains('answered')) return;
-    
-    // Mark card as answered to change layout states
-    card.classList.add('answered');
-    
-    // Highlight choice
-    if (isCorrect) {
-        selectedElement.classList.add('correct-choice');
-    } else {
-        selectedElement.classList.add('wrong-choice');
-        // Find and highlight the correct answer choice as helper reference
-        const correctBtn = card.querySelector('[data-correct="true"]');
-        if (correctBtn) correctBtn.classList.add('correct-choice');
-    }
-    
-    // Select the feedback display inside this card
-    const feedbackPanel = card.querySelector('.auto-feedback-panel');
-    if (feedbackPanel) {
+    function checkAutoAnswer(selectedElement, isCorrect) {
+        const card = selectedElement.closest('.auto-card');
+        if (card.classList.contains('answered')) return;
+        card.classList.add('answered');
         if (isCorrect) {
-            feedbackPanel.classList.add('correct-style');
-            feedbackPanel.innerHTML = `<strong>✅Correct!</strong> ` + feedbackPanel.getAttribute('data-correct-msg');
-        } else {
-            feedbackPanel.classList.add('wrong-style');
-            feedbackPanel.innerHTML = `<strong>❌Incorrect.</strong> ` + feedbackPanel.getAttribute('data-wrong-msg');
+            selectedElement.classList.add('correct-choice');
+         } else {
+            selectedElement.classList.add('wrong-choice');
+            const correctBtn = card.querySelector('[data-correct="true"]');
+            if (correctBtn) correctBtn.classList.add('correct-choice');
         }
-    }
-}
-
-        function resetTargetedAutomatedQuestions(buttonElement) {
-    // Finds the parent section or container holding these specific automated questions
-    const parentContainer = buttonElement.closest('.content-section') || buttonElement.closest('section') || buttonElement.parentElement.parentElement;
-    
-    if (!parentContainer) return;
-
-    // Selects ONLY the automated question cards within this parent tab section
-    const autoCards = parentContainer.querySelectorAll('.auto-card');
-    
-    autoCards.forEach(card => {
-        // 1. Clear out the answered state lock
-        card.classList.remove('answered');
-        
-        // 2. Unlock choice option button cursor interactions
-        card.style.pointerEvents = 'auto'; 
-        
-        // 3. Clear all visual correct/wrong color layouts from choice boxes
-        card.querySelectorAll('.auto-option').forEach(opt => {
-            opt.classList.remove('correct-choice', 'wrong-choice');
-        });
-        
-        // 4. Safe wipe the dynamic text fields inside the feedback box
         const feedbackPanel = card.querySelector('.auto-feedback-panel');
         if (feedbackPanel) {
-            feedbackPanel.classList.remove('correct-style', 'wrong-style');
-            feedbackPanel.innerHTML = '';
-            // DO NOT USE feedbackPanel.style.display = 'none' here!
+            if (isCorrect) {
+                feedbackPanel.classList.add('correct-style');
+                feedbackPanel.innerHTML = `<strong>✅Correct!</strong> ` + feedbackPanel.getAttribute('data-correct-msg');
+            } else {
+                feedbackPanel.classList.add('wrong-style');
+                feedbackPanel.innerHTML = `<strong>❌Incorrect.</strong> ` + feedbackPanel.getAttribute('data-wrong-msg');
+            }
         }
-    });
-
-    // Smoothly scroll the screen view back up to the first item box in this section group
-    const firstInfoBox = parentContainer.querySelector('.auto-info-box');
-    if (firstInfoBox) {
-        firstInfoBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-}
-        
-        // ===================== SECTION CONFIGURATION =====================
-        // Each section gets its own isolated data, state, and DOM targets
-        const quizSections = {
-            'evaluation': {
+    
+    function resetTargetedAutomatedQuestions(buttonElement) {
+        const parentContainer = buttonElement.closest('.content-section') || buttonElement.closest('section') || buttonElement.parentElement.parentElement;
+        if (!parentContainer) return;
+        const autoCards = parentContainer.querySelectorAll('.auto-card');
+        autoCards.forEach(card => {
+            card.classList.remove('answered');
+            card.style.pointerEvents = 'auto'; 
+            card.querySelectorAll('.auto-option').forEach(opt => {
+                opt.classList.remove('correct-choice', 'wrong-choice');
+            });
+            const feedbackPanel = card.querySelector('.auto-feedback-panel');
+            if (feedbackPanel) {
+                feedbackPanel.classList.remove('correct-style', 'wrong-style');
+                feedbackPanel.innerHTML = '';
+            }
+        });
+        const firstInfoBox = parentContainer.querySelector('.auto-info-box');
+        if (firstInfoBox) {
+            firstInfoBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
+    const quizSections = {
+        'evaluation': {
                 mcq: {
                     containerId: 'eval-mcq-section',
                     scoreSummaryId: 'eval-score-summary',
@@ -2573,10 +2321,6 @@ div.matching-item.wrong-match,
         };
 
 
-
-
-        
-        // ===================== STATE MANAGEMENT =====================
         const sectionStates = {};
 
         function initSectionState(sectionKey) {
@@ -2600,7 +2344,6 @@ div.matching-item.wrong-match,
             }
         }
 
-        // ===================== UTILITIES =====================
         function shuffleArray(array) {
             const arr = [...array];
             for (let i = arr.length - 1; i > 0; i--) {
@@ -2610,7 +2353,6 @@ div.matching-item.wrong-match,
             return arr;
         }
 
-        // ===================== RENDER FUNCTIONS (SECTION-SCOPED) =====================
         function renderMatchingForSection(sectionKey) {
             const section = quizSections[sectionKey];
             if (!section || !section.matching) return;
@@ -2703,7 +2445,7 @@ div.matching-item.wrong-match,
             });
         }
 
-        // ===================== EVENT HANDLERS (SECTION-SCOPED) =====================
+    
         function initMatchingEventsForSection(sectionKey) {
             const section = quizSections[sectionKey];
             if (!section || !section.matching) return;
@@ -2731,7 +2473,6 @@ div.matching-item.wrong-match,
             const clueText = feedbackBox.querySelector('.matching-clue-text');
             const clues = quizSections[sectionKey].matching.data[questionNum - 1].clues;
 
-            // Prevent clicking on elements that are already locked/matched
             if (clickedItem.classList.contains('matched')) return;
 
             if (!state.selected) {
@@ -2777,14 +2518,11 @@ div.matching-item.wrong-match,
                     showMatchingScore(sectionKey, questionNum);
                 }
             } else {
-                // Increment pair counter so tracking moves forward even for mistakes
                 state.matchedPairs++;
                 
-                // ===== UPDATED: Instantly highlights red and locks them permanently from edits =====
                 firstItem.classList.add('matched', 'wrong-match');
                 secondItem.classList.add('matched', 'wrong-match');
                 
-                // Remove selected highlights clean
                 firstItem.classList.remove('selected');
                 secondItem.classList.remove('selected');
                 state.selected = null;
@@ -2829,8 +2567,6 @@ div.matching-item.wrong-match,
         }
 
         
-        
-      // ===================== MCQ SUBMISSION (SECTION-SCOPED) =====================
         function submitQuizForSection(sectionKey) {
             const section = quizSections[sectionKey];
             if (!section || !section.mcq) return;
@@ -2852,11 +2588,9 @@ div.matching-item.wrong-match,
                 container.classList.add('show-results');
                 container.querySelectorAll('.option').forEach(opt => opt.classList.remove('correct-choice', 'wrong-choice'));
 
-                // ===== LOCK RADIO BUTTONS TO PREVENT EDITING AFTER SUBMISSION =====
                 container.querySelectorAll(`input[name="${sectionKey}-q${qNum}"]`).forEach(radio => {
                     radio.disabled = true;
                 });
-                // =========================================================================
 
                 if (selected) {
                     const isCorrect = selected.value === correctAnswer;
@@ -2869,12 +2603,10 @@ div.matching-item.wrong-match,
                     } else {
                         selected.parentElement.classList.add('wrong-choice');
                         
-                        // ===== ADDED: Find and highlight the correct answer if user got it wrong =====
                         const correctRadio = container.querySelector(`input[name="${sectionKey}-q${qNum}"][value="${correctAnswer}"]`);
                         if (correctRadio) {
                             correctRadio.parentElement.classList.add('correct-choice');
                         }
-                        // ============================================================================
                         
                         statusText.innerHTML = "<b>❌Incorrect.</b>";
                         feedbackBox.className = 'feedback incorrect-feedback';
@@ -2882,12 +2614,10 @@ div.matching-item.wrong-match,
                     explanationText.innerHTML = explanation;
                     feedbackBox.style.display = "block";
                 } else {
-                    // ===== ADDED: Also highlight correct option if left blank for student reference =====
                     const correctRadio = container.querySelector(`input[name="${sectionKey}-q${qNum}"][value="${correctAnswer}"]`);
                     if (correctRadio) {
                         correctRadio.parentElement.classList.add('correct-choice');
                     }
-                    // ============================================================================
                     
                     statusText.innerHTML = "Please select an answer.";
                     feedbackBox.style.display = "block";
@@ -2900,9 +2630,7 @@ div.matching-item.wrong-match,
             scoreText.innerHTML = `You scored ${score} out of ${total}!`;
         }
 
-        // ===== AUTOMATICALLY RESET EVERYTHING ON PAGE RELOAD / FRESH REFRESH =====
         window.addEventListener('beforeunload', function() {
-            // Finds all form wrappers and inputs on the entire page and wipes their memory cache prior to unloading
             const inputs = document.querySelectorAll('input[type="radio"]');
             inputs.forEach(radio => {
                 radio.checked = false;
@@ -2911,19 +2639,14 @@ div.matching-item.wrong-match,
         });
 
 
-// ===================== RESET (SECTION-SCOPED) =====================
         function resetSection(sectionKey) {
-            // Re-initialize state
             initSectionState(sectionKey);
             
-            // Re-render matching activity
             renderMatchingForSection(sectionKey);
             initMatchingEventsForSection(sectionKey);
             
-            // Re-render MCQ
             renderMCQForSection(sectionKey);
             
-            // Hide score summaries
             const section = quizSections[sectionKey];
             if (section.matching) {
                 document.getElementById(section.matching.scoreSummaryId).style.display = 'none';
@@ -2934,16 +2657,13 @@ div.matching-item.wrong-match,
         }
 
 
-        
-        
-        // ===================== GLOBAL RESET (ALL SECTIONS) =====================
         function resetAll() {
             Object.keys(quizSections).forEach(sectionKey => {
                 resetSection(sectionKey);
             });
         }
 
-        // ===================== NAVIGATION =====================
+
         function switchTab(tabId) {
             document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
             event.currentTarget.classList.add('active');
@@ -2975,7 +2695,6 @@ div.matching-item.wrong-match,
             }
         }
 
-        // ===================== INITIALIZATION =====================
         function initAllSections() {
             Object.keys(quizSections).forEach(sectionKey => {
                 initSectionState(sectionKey);
@@ -2989,13 +2708,9 @@ div.matching-item.wrong-match,
         }
         
         
-        
-        // ===================== TIMED QUIZ SYSTEM (SECTION-SCOPED) =====================
-        // Configuration for timed quizzes per section - isolated to prevent overlap
         const timedQuizConfigs = {
             'discussion': {
                 data: [
-                    // Fact or Bluff Questions (1-10)
                     {
                         id: 1,
                         type: 'tf',
@@ -3108,7 +2823,6 @@ div.matching-item.wrong-match,
                     },
                 ],
                 timePerQuestion: 10,
-                // DOM element IDs - all prefixed with section key
                 startScreenId: 'discussion-quiz-start-screen',
                 questionScreenId: 'discussion-quiz-question-screen',
                 resultsScreenId: 'discussion-quiz-results-screen',
@@ -3130,7 +2844,6 @@ div.matching-item.wrong-match,
             }
         };
         
-        // State storage for timed quizzes - isolated per section
         const timedQuizStates = {};
 
         function initTimedQuizState(sectionKey) {
@@ -3146,10 +2859,9 @@ div.matching-item.wrong-match,
             };
         }
         
-              // ===================== YOUTUBE MUSIC (GLOBAL) =====================
         let youtubePlayer = null;
         let musicPlaying = false;
-        const MUSIC_VIDEO_ID = 'K59UZ8ucbnQ'; // Lofi Girl radio
+        const MUSIC_VIDEO_ID = 'K59UZ8ucbnQ';  
 
         function loadYouTubeAPI() {
             if (window.YT && window.YT.Player) return;
@@ -3184,7 +2896,7 @@ div.matching-item.wrong-match,
             });
         }
 
-        // ===================== MUSIC CONTROLS (GLOBAL) =====================
+
         function toggleDiscussionMusic() {
             const btn = document.getElementById('musicToggle');
             const icon = document.getElementById('musicIcon');
@@ -3213,9 +2925,8 @@ div.matching-item.wrong-match,
             musicContainer.classList.add('visible');
         }
 
-        // ===================== TIMED QUIZ FUNCTIONS =====================
+        
         function startTimedQuiz(sectionKey) {
-            // Auto-start background music when quiz begins
             if (!musicPlaying && youtubePlayer && youtubePlayer.playVideo) {
                 youtubePlayer.playVideo();
                 const btn = document.getElementById('musicToggle');
@@ -3248,11 +2959,11 @@ div.matching-item.wrong-match,
             state.isAnswered = false;
             state.timeLeft = config.timePerQuestion;
 
-            // Update header
+           
             document.getElementById(config.currentQNumId).textContent = index + 1;
             document.getElementById(config.totalQNumId).textContent = state.shuffledData.length;
 
-            // Update type badge
+            
             const typeBadge = document.getElementById(config.questionTypeId);
             if (question.type === 'mcq') {
                 typeBadge.textContent = 'Multiple Choice';
@@ -3262,10 +2973,10 @@ div.matching-item.wrong-match,
                 typeBadge.style.background = 'rgba(136, 14, 79, 0.3)';
             }
 
-            // Update question text
+           
             document.getElementById(config.questionTextId).textContent = question.question;
 
-            // Build options
+       
             const optionsContainer = document.getElementById(config.optionsContainerId);
             optionsContainer.innerHTML = '';
             
@@ -3281,11 +2992,11 @@ div.matching-item.wrong-match,
                 optionsContainer.appendChild(optionDiv);
             });
 
-            // Reset feedback and next button
+           
             document.getElementById(config.feedbackPanelId).classList.remove('show');
             document.getElementById(config.nextBtnContainerId).style.display = 'none';
 
-            // Reset timer display
+          
             const timerDisplay = document.getElementById(config.timerDisplayId);
             timerDisplay.textContent = config.timePerQuestion;
             timerDisplay.classList.remove('urgent');
@@ -3294,7 +3005,7 @@ div.matching-item.wrong-match,
             timerBar.style.width = '100%';
             timerBar.classList.remove('urgent');
 
-            // Start timer
+            
             startTimedTimer(sectionKey);
         }
 
@@ -3350,8 +3061,7 @@ div.matching-item.wrong-match,
             });
             
             if (isCorrect) state.score++;
-            
-            // Visual feedback
+        
             const config = timedQuizConfigs[sectionKey];
             const options = document.querySelectorAll(`#${config.optionsContainerId} .quiz-option`);
             options.forEach(opt => {
@@ -3391,7 +3101,6 @@ div.matching-item.wrong-match,
                 explanation: question.explanation
             });
             
-            // Reveal correct answer
             const options = document.querySelectorAll(`#${config.optionsContainerId} .quiz-option`);
             options.forEach(opt => {
                 opt.classList.add('disabled');
@@ -3550,7 +3259,6 @@ div.matching-item.wrong-match,
             initTimedQuizState(sectionKey);
         }
 
-        // ===================== INITIALIZATION =====================
         document.addEventListener('DOMContentLoaded', function() {
             initAllSections();
             
