@@ -2465,7 +2465,7 @@
             const section = quizSections[sectionKey];
             if(!section) return;
             if (section.mcq) {
-                remderMCQForSection(sectionKey);
+                renderMCQForSection(sectionKey);
                 document.getElementById(section.mcq.scoreSummaryId).style.display = 'none';
             }
         }
@@ -2518,20 +2518,6 @@
             });
         }
         
-        
-        function restartTimedQuiz(sectionKey) {
-            const config = timedQuizConfigs[sectionKey];
-            const resultsScreen = document.getElementById(config.resultsScreenId);
-            resultsScreen.classList.remove('active');
-            
-            const startScreen = document.getElementById(config.startScreenId);
-            startScreen.style.display = 'block';
-            startScreen.classList.remove('fade-out');
-            startScreen.style.opacity = '1';
-            startScreen.style.transform = 'translateY(0)';
-            
-            initTimedQuizState(sectionKey);
-        }
 
         document.addEventListener('DOMContentLoaded', function() {
             initAllSections();
