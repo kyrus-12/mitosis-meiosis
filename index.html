@@ -1469,6 +1469,28 @@
                                 { value: "d", text: "Plastic bottles", explain: "Because plastic bottles are not used for electron-based information storage." }
                             ],
                             correct: "a"
+                        },
+                        {
+                            id: 11,
+                            question: "Y",
+                            options: [
+                                { value: "a", text: "", explain: "" },
+                                { value: "b", text: "", explain: "" },
+                                { value: "c", text: "", explain: "" },
+                                { value: "d", text: "", explain: "" }
+                            ],
+                            correct: "a"
+                        },
+                        {
+                            id: 12,
+                            question: "R",
+                            options: [
+                                { value: "a", text: "", explain: "" },
+                                { value: "b", text: "", explain: "" },
+                                { value: "c", text: "", explain: "" },
+                                { value: "d", text: "", explain: "" }
+                            ],
+                            correct: "a"
                         }
                     ]
                 }
@@ -1548,7 +1570,8 @@
             if (!container) return;
             
             container.innerHTML = '';
-            const shuffledQuestions = shuffleArray(config.data);
+            const shuffledQuestions = pickQuestionSet(sectionKey, config);
+            const shuffledQuestions = pickQuestionSet(sectionKey, config);
 
             shuffledQuestions.forEach((q, idx) => {
                 const qNum = idx + 1;
