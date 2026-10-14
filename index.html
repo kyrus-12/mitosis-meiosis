@@ -945,7 +945,7 @@
     <body>
         <div class="bg-layer"></div>
         <header class="header">
-            <div class="brand">Mi-TWO-sis and ME-YOU-sis</div>
+            <div class="brand">| Mi-TWO-sis and ME-YOU-sis |</div>
         </header>
         <aside class="sidebar">
             <nav class="nav-menu">
@@ -1508,8 +1508,37 @@
             return arr;
         }
 
-        
+        const QUESTIONS_PER_SET = 10;
+        function pickQuestionSet(sectionKey, config){
+            const bank = config.data;
+            const size = config.perSet || QUESTIONS_PER_SET;
+            if(bank.length <= size) return shuffleArray(bank);
 
+            const storageKey = 'quizSeen_' + sectionKey;
+            const validIds = bank.map(q => q.id);
+            let seen = [];
+            try{
+                seen = JSON.parse(localStorage.getItem(storageKey)) || [];
+            } catch(e) { seen = []; }
+            seen = seen.filter(id => validIds.includes(id));
+
+            const unseen = bank.filter(q => !seen.includes(q.id));
+            let picked;
+            if(unseen.length >= size){
+                picked = shuffleArray(unseen).slice(0, size);
+                seen = seen.concat(picked.map(q => q.id));
+            } else {
+                const others = shuffleArray(bank.filter( => !unseen.includes(q)));
+                const fill = others.slice(0, size - unseen.length);
+                picked = shuffleArray(unseen.concat(fill));
+                seen = fill.map(q => q.id);
+            } try {
+                localStorage.setItem(stroageKey, JSON.stringify(seen));
+            } catch(e) {}
+            return picked;
+        }
+
+        
         function renderMCQForSection(sectionKey) {
             const section = quizSections[sectionKey];
             if (!section || !section.mcq) return;
