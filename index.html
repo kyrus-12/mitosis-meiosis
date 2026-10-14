@@ -2462,20 +2462,15 @@
 
         function resetSection(sectionKey) {
             initSectionState(sectionKey);
-            
-            renderMatchingForSection(sectionKey);
-            initMatchingEventsForSection(sectionKey);
-            
-            renderMCQForSection(sectionKey);
-            
             const section = quizSections[sectionKey];
-            if (section.matching) {
-                document.getElementById(section.matching.scoreSummaryId).style.display = 'none';
-            }
+            if(!section) return;
             if (section.mcq) {
+                remderMCQForSection(sectionKey);
                 document.getElementById(section.mcq.scoreSummaryId).style.display = 'none';
             }
         }
+
+        
 
 
         function resetAll() {
