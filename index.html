@@ -2738,12 +2738,20 @@
             });
         }
 
+        const REMEMBER_SCROLL = false;
+        const tabScroll = {};
 
         function switchTab(tabId) {
+            const current = document.querySelector('.content-section.active');
+            if(current) tabScroll[current.id] = window.scrollY;
+            
             document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
             event.currentTarget.classList.add('active');
             document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
+
+            const top = REMEMBER_SCROLL ? (tabScroll[tabId] || 0) : 0;
+            window.scroll({ top : top, left : 0, behavior : 'instant' });
         }
   
         function disableDoubleClickZoom() {
