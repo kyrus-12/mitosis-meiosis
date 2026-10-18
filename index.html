@@ -1469,6 +1469,248 @@
                     scoreTextId: 'eval-final-score-text',
                     perDifficulty: { easy: 3, average: 3, hard: 4 },
                     data: [
+                        {
+                            id: 1,
+                            difficulty: “easy”,
+                            question: "Which organelle contains DNA?",
+                            options: [
+                                {value: "a", text: "Nucleus", explain: " The nucleus is the control center of the cell. It contains DNA, which holds the instructions for all cell activities and traits."},
+                                {value: "b", text: "Centrioles", explain: "Centrioles help organize spindle fibers during cell division, but they do not store DNA."},
+                                {value: "c", text: "Cell membrane", explain: "The cell membrane controls what enters and leaves the cell. It does not contain DNA."},
+                                {value: "d", text: "Ribosome", explain: "Ribosomes make proteins by reading instructions from RNA, but they do not hold DNA."}
+                            ],
+                            correct: "a"
+                        },
+                        {
+                            id: 2,
+                            difficulty: “easy”,
+                            question: "What directs cell division by producing spindle fibers?",
+                            options: [
+                                {value: "a", text: "Mitochondria", explain: "Mitochondria provide energy for the cell, but they do not produce spindle fibers."},
+                                {value: "b", text: "Centrioles", explain: " Centrioles organize and produce spindle fibers, which help separate chromosomes during cell division."},
+                                {value: "c", text: "Nucleus", explain: "The nucleus stores DNA and controls cell activities, but it does not make spindle fibers."},
+                                {value: "d", text: "Golgi body", explain: "The Golgi body packages and ships proteins, not spindle fibers."}
+                            ],
+                            correct: "b"
+                        },
+                        {
+                            id: 3,
+                            difficulty: “easy”,
+                            question: "Which structure regulates what enters and leaves the cell?",
+                            options: [
+                                {value: "a", text: "Cell wall", explain: "The cell wall provides support and protection in plant cells, but it does not control transport."},
+                                {value: "b", text: "Cell membrane", explain: " The cell membrane is selectively permeable, meaning it decides what substances can enter or leave the cell."},
+                                {value: "c", text: "Nucleus", explain: "The nucleus controls genetic information, not the movement of materials in and out of the cell."},
+                                {value: "d", text: "Lysosome", explain: "Lysosomes break down waste and old cell parts, not regulate transport."}
+                            ],
+                            correct: "b"
+                        },
+                        {
+                            id: 4,
+                            difficulty: “easy”,
+                            question: "What phase of the cell cycle involves DNA duplication?",
+                            options: [
+                                {value: "a", text: "G1", explain: "In G1, the cell grows, makes proteins, and prepares for DNA replication, but the DNA itself is not duplicated yet."},
+                                {value: "b", text: "G2", explain: "In G2, the cell checks for DNA damage and prepares for mitosis, but DNA replication has already been completed earlier."},
+                                {value: "c", text: "S Phase", explain: " During the S phase, the cell copies its DNA so that each new cell will have a complete set of genetic instructions."},
+                                {value: "d", text: "M Phase", explain: "The M phase is mitosis, where the nucleus and chromosomes divide. DNA replication happens before this stage."}
+                            ],
+                            correct: "c"
+                        },
+                        {
+                            id: 5,
+                            difficulty: “easy”,
+                            question: "Which checkpoint ensures DNA is copied correctly?",
+                            options: [
+                                {value: "a", text: "G1 checkpoint", explain: "The G1 checkpoint checks if the cell is large enough and ready to copy DNA, but it does not check the accuracy of DNA replication."},
+                                {value: "b", text: "S checkpoint", explain: " The S checkpoint makes sure DNA is being copied correctly without mistakes."},
+                                {value: "c", text: "M checkpoint", explain: "The M checkpoint ensures chromosomes are lined up properly before separation, not DNA copying."},
+                                {value: "d", text: "G2 checkpoint", explain: "The G2 checkpoint checks for DNA damage and prepares the cell for mitosis, but it does not focus on replication accuracy."}
+                            ],
+                            correct: "b"
+                        },
+                        {
+                            id: 6,
+                            difficulty: “easy”,
+                            question: "How many chromosomes are in human somatic cells?",
+                            options: [
+                                {value: "a", text: "23", explain: "This is the haploid number, found in gametes like sperm and egg cells, not in body (somatic) cells."},
+                                {value: "b", text: "92", explain: "This would be double the normal number after DNA replication, but cells do not permanently have 92 chromosomes."},
+                                {value: "c", text: "21", explain: "Incorrect. Humans do not have 21 chromosomes; this number is too low."},
+                                {value: "d", text: "46", explain: " Human somatic cells are diploid, meaning they have 46 chromosomes arranged in 23 pairs."}
+                            ],
+                            correct: "d"
+                        },
+                        {
+                            id: 7,
+                            difficulty: “easy”,
+                            question: "What does diploid (2n) mean?",
+                            options: [
+                                {value: "a", text: "One set of chromosomes", explain: "One set is haploid, found in gametes, not diploid."},
+                                {value: "b", text: "Half the set", explain: "Half the set also describes haploid cells, not diploid."},
+                                {value: "c", text: "Two complete sets", explain: " Diploid means the cell has two sets of chromosomes, one from each parent."},
+                                {value: "d", text: "Four sets", explain: "Four sets would be tetraploid, which is not normal in humans."}
+                            ],
+                            correct: "c"
+                        },
+                        {
+                            id: 8,
+                            difficulty: “easy”,
+                            question: "Which phase aligns chromosomes at the cell’s center?",
+                            options: [
+                                {value: "a", text: "Metaphase", explain: " In metaphase, chromosomes line up at the equator (middle) of the cell, preparing for separation."},
+                                {value: "b", text: "Prophase", explain: "In prophase, chromosomes condense and spindle fibers begin to form, but they are not yet aligned."},
+                                {value: "c", text: "Anaphase", explain: "In anaphase, sister chromatids are pulled apart, not aligned."},
+                                {value: "d", text: "Telophase", explain: "In telophase, nuclear envelopes reform around separated chromosomes."}
+                            ],
+                            correct: "a"
+                        },
+                        {
+                            id: 9,
+                            difficulty: “easy”,
+                            question: "During which phase do sister chromatids separate?",
+                            options: [
+                                {value: "a", text: "Prophase", explain: "In prophase, chromosomes condense and spindle fibers form, but chromatids do not separate yet."},
+                                {value: "b", text: "Metaphase", explain: "In metaphase, chromosomes line up at the cell’s center, but separation has not occurred."},
+                                {value: "c", text: "Anaphase", explain: " In anaphase, sister chromatids are pulled apart to opposite poles of the cell."},
+                                {value: "d", text: "Telophase", explain: "In telophase, the nuclear envelope reforms after chromatids have already separated."}
+                            ],
+                            correct: "c"
+                        },
+                        {
+                            id: 10,
+                            difficulty: “easy”,
+                            question: "What reforms during telophase?",
+                            options: [
+                                {value: "a", text: "Spindle fibers", explain: "Spindle fibers disassemble during telophase, they do not reform."},
+                                {value: "b", text: "Nuclear envelope", explain: " The nuclear envelope reforms around each set of chromosomes, creating two nuclei."},
+                                {value: "c", text: "Centrioles", explain: "Centrioles duplicate earlier in the cycle, not during telophase."},
+                                {value: "d", text: "Ribosomes", explain: "Ribosomes are always present in the cell and are not specific to telophase."}
+                            ],
+                            correct: "b"
+                        },
+                        {
+                            id: 11,
+                            difficulty: “easy”,
+                            question: "What is the final step of mitosis?",
+                            options: [
+                                {value: "a", text: "Prophase", explain: "Prophase is the first stage of mitosis, where chromosomes condense and spindle fibers begin to form. It is not the final step."},
+                                {value: "b", text: "Metaphase", explain: "Metaphase is the middle stage where chromosomes line up at the cell’s center. It is not the last step."},
+                                {value: "c", text: "Anaphase", explain: "Anaphase is when sister chromatids are pulled apart to opposite sides of the cell. This happens before the final step."},
+                                {value: "d", text: "Cytokinesis", explain: " Cytokinesis is the last step, where the cytoplasm divides, creating two separate daughter cells."}
+                            ],
+                            correct: "d"
+                        },
+                        {
+                            id: 12,
+                            difficulty: “easy”,
+                            question: "How many daughter cells result from mitosis?",
+                            options: [
+                                {value: "a", text: "One", explain: "One cell would mean no division occurred, so this is incorrect."},
+                                {value: "b", text: "Two", explain: " Mitosis produces two daughter cells that are genetically identical to the parent cell."},
+                                {value: "c", text: "Three", explain: "Cells do not divide into three equal parts during mitosis."},
+                                {value: "d", text: "Four", explain: "Four cells are produced in meiosis, not mitosis."}
+                            ],
+                            correct: "b"
+                        },
+                        {
+                            id: 13,
+                            difficulty: “easy”,
+                            question: "What type of cells undergo mitosis?",
+                            options: [
+                                {value: "a", text: "Gametes", explain: "Gametes (sperm and egg) are produced by meiosis, not mitosis."},
+                                {value: "b", text: "Somatic cells", explain: " Somatic cells are body cells like skin, muscle, and bone cells. They divide by mitosis for growth and repair."},
+                                {value: "c", text: "Haploid cells", explain: "Haploid cells are gametes, which come from meiosis, not mitosis."},
+                                {value: "d", text: "Germ cells", explain: "Germ cells undergo meiosis to form gametes, not mitosis."}
+                            ],
+                            correct: "b"
+                        },
+                        {
+                            id: 14,
+                            difficulty: “easy”,
+                            question: "How many chromosomes are in human gametes?",
+                            options: [
+                                {value: "a", text: "23", explain: " Gametes are haploid, meaning they carry only one set of chromosomes (23 in humans)."},
+                                {value: "b", text: "46", explain: "46 is the diploid number found in somatic cells, not gametes."},
+                                {value: "c", text: "92", explain: "92 would be double the diploid number, which is not normal."},
+                                {value: "d", text: "21", explain: "21 is too few chromosomes and does not match human gametes."}
+                            ],
+                            correct: "a"
+                        },
+                        {
+                            id: 15,
+                            difficulty: “easy”,
+                            question: "What process produces gametes?",
+                            options: [
+                                {value: "a", text: "Mitosis", explain: "Mitosis produces somatic cells for growth and repair, not gametes."},
+                                {value: "b", text: "Binary fission", explain: "Binary fission is a type of asexual reproduction in bacteria, not gamete production."},
+                                {value: "c", text: "Meiosis", explain: " Meiosis produces gametes (sperm and egg cells) by reducing the chromosome number in half."},
+                                {value: "d", text: "Budding", explain: "Budding is a form of asexual reproduction in organisms like yeast, not gamete formation."}
+                            ],
+                            correct: "c"
+                        },
+                        {
+                            id: 16,
+                            difficulty: “easy”,
+                            question: "How many divisions occur in meiosis?",
+                            options: [
+                                {value: "a", text: "One", explain: "One division happens in mitosis, but meiosis is different because it has two rounds of division."},
+                                {value: "b", text: "Two", explain: " Meiosis has two divisions: Meiosis I separates homologous chromosomes, and Meiosis II separates sister chromatids."},
+                                {value: "c", text: "Three", explain: "Cells do not divide three times in meiosis."},
+                                {value: "d", text: "Four", explain: "Four divisions would be too many; meiosis only has two."}
+                            ],
+                            correct: "b"
+                        },
+                        {
+                            id: 17,
+                            difficulty: “easy”,
+                            question: "What forms during synapsis in Prophase I?",
+                            options: [
+                                {value: "a", text: "Chromatids", explain: "Chromatids are already present as part of chromosomes; they do not form during synapsis."},
+                                {value: "b", text: "Spindle fibers", explain: "Spindle fibers form later to help move chromosomes, not during synapsis."},
+                                {value: "c", text: "Tetrads", explain: " In Prophase I, homologous chromosomes pair up to form tetrads, which allow crossing over to occur."},
+                                {value: "d", text: "Ribosomes", explain: "Ribosomes make proteins and are not involved in synapsis."}
+                            ],
+                            correct: "c"
+                        },
+                        {
+                            id: 18,
+                            difficulty: “easy”,
+                            question: "Which phase of meiosis involves homologous chromosomes separating?",
+                            options: [
+                                {value: "a", text: "Prophase I", explain: "In Prophase I, chromosomes pair up and crossing over happens, but separation does not occur yet."},
+                                {value: "b", text: "Metaphase I", explain: "In Metaphase I, homologous chromosomes line up at the cell’s center, but they are not separated yet."},
+                                {value: "c", text: "Anaphase I", explain: " In Anaphase I, homologous chromosomes are pulled apart to opposite poles, reducing the chromosome number."},
+                                {value: "d", text: "Telophase I", explain: "In Telophase I, nuclei reform after the chromosomes have already been separated."}
+                            ],
+                            correct: "c"
+                        },
+                        {
+                            id: 19,
+                            difficulty: “easy”,
+                            question: "Which checkpoint ensures the cell is large enough to divide?",
+                            options: [
+                                {value: "a", text: "G1 checkpoint", explain: " The G1 checkpoint checks if the cell has grown enough and has the resources to copy DNA and continue dividing."},
+                                {value: "b", text: "S checkpoint", explain: "The S checkpoint checks if DNA is being copied correctly, not cell size."},
+                                {value: "c", text: "M checkpoint", explain: "The M checkpoint ensures chromosomes are aligned properly before separation."},
+                                {value: "d", text: "G2 checkpoint", explain: "The G2 checkpoint checks for DNA damage and prepares the cell for mitosis, not cell size."}
+                            ],
+                            correct: "a"
+                        },
+                        {
+                            id: 20,
+                            difficulty: “easy”,
+                            question: "What event increases genetic variation in meiosis?",
+                            options: [
+                                {value: "a", text: "DNA replication", explain: "DNA replication makes identical copies of DNA, so it does not increase variation."},
+                                {value: "b", text: "Cytokinesis", explain: "Cytokinesis divides the cytoplasm, but it does not change genetic information."},
+                                {value: "c", text: "Crossing over", explain: " Crossing over happens when homologous chromosomes exchange pieces of DNA, creating new combinations of traits."},
+                                {value: "d", text: "Spindle formation", explain: "Spindle fibers help move chromosomes, but they do not create genetic variation."}
+                            ],
+                            correct: "c"
+                        },
+
+
                                                                                     
                                                         
                             
